@@ -1,0 +1,160 @@
+﻿@model  Member.Models.Mager
+
+@{
+    ViewBag.Title = "新增管理員";
+}
+<h2 class="mt-5">新增管理員</h2>
+
+@using (Html.BeginForm())
+{
+
+<div class="form-horizontal ">
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2  mt-2">帳號</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaAct, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入帳號" ,@required = "reauired"} })
+            @Html.ValidationMessageFor(model => model.MaAct, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class = "control-label col-md-2  mt-2">密碼</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaPwd, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入密碼", @required = "reauired" } })
+            @Html.ValidationMessageFor(model => model.MaPwd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("權限範圍", new { @class = "control-label col-md-2  mt-2" })
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="Ctab1" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">會員</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Ctab3" data-toggle="tab" href="#tab2" role="tab" aria-controls="contact" aria-selected="false">檢舉</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Ctab4" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false">影音文章</a>
+        </li>
+    </ul>
+    <div class="tab-content p-5 m-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="Ctab1">
+            <div class="form-group form-check form-check-inline">
+                <label for="b1" class="form-check-label">新增</label>
+                <input type="checkbox" id="b1" />
+            </div>
+            <div class="form-group form-check form-check-inline">
+                <label for="b2" class="form-check-label">編輯</label>
+                <input type="checkbox" id="b2" />
+            </div>
+            <div class="form-group form-check form-check-inline">
+                <label for="b3" class="form-check-label">刪除</label>
+                <input type="checkbox" id="b3" />
+            </div>
+            <input type="hidden" id="bc" name="bc" />
+        </div>
+        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="Ctab2">
+            @*<div class="form-group form-check form-check-inline">
+                <label for="c1" class="form-check-label">新增</label>
+                <input type="checkbox" id="c1" />
+            </div>
+            <div class="form-group form-check form-check-inline">
+                <label for="c2" class="form-check-label">編輯</label>
+                <input type="checkbox" id="c2" />
+            </div>*@
+            <div class="form-group form-check form-check-inline">
+                <label for="c3" class="form-check-label">刪除</label>
+                <input type="checkbox" id="c3" />
+            </div>
+            <input type="hidden" id="cc" name="cc" />
+        </div>
+        <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="Ctab1">
+            <div class="form-group form-check form-check-inline">
+                <label for="d1" class="form-check-label">新增</label>
+                <input type="checkbox" id="d1" />
+            </div>
+            <div class="form-group form-check form-check-inline">
+                <label for="d2" class="form-check-label">編輯</label>
+                <input type="checkbox" id="d2" />
+            </div>
+            <div class="form-group form-check form-check-inline">
+                <label for="d3" class="form-check-label">刪除</label>
+                <input type="checkbox" id="d3" />
+            </div>
+            <input type="hidden" id="dc" name="dc" />
+        </div>
+    </div>
+
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="submit" value="新增"  onclick="p()"class="btn btn-outline-secondary" />
+        </div>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        @ViewBag.Message
+    </div>
+</div>
+}
+<div class="col-md-offset-2 col-md-10">
+    @Html.ActionLink("回到管理員列表", "AuthIndex", new { }, new { @class = "btn btn-outline-secondary" })
+</div>
+
+<script>
+    function p() {
+        var b = 0;
+        if ($("#b1").is(":checked") == true)
+            b += 1;       
+        else
+            b += 0; 
+        if ($("#b2").is(":checked") == true)
+            b += 2;
+        else
+            b += 0; 
+        if ($("#b3").is(":checked") == true)
+            b += 4;
+        else
+            b += 0;
+        var be = "";
+        if(b>0)
+            be += "B" + b.toString();
+        $("#bc").val(be);
+        var c = 0;
+        if ($("#c1").is(":checked") == true)
+            c += 1;
+        else
+            c += 0;
+        if ($("#c2").is(":checked") == true)
+            c += 2;
+        else
+            c += 0;
+        if ($("#c3").is(":checked") == true)
+            c += 4;
+        else
+            c += 0;
+        var ce = "";
+        if (c>0)
+            ce += "C" + c.toString();
+        $("#cc").val(ce);
+        var d = 0;
+        if ($("#d1").is(":checked") == true)
+            d += 1;
+        else
+            d += 0;
+        if ($("#d2").is(":checked") == true)
+            d += 2;
+        else
+            d += 0;
+        if ($("#d3").is(":checked") == true)
+            d += 4;
+        else
+            d += 0;
+        var de = "";
+        if (d>0)
+            de += "D" + d.toString();
+        $("#dc").val(de);
+        
+    }
+
+</script>

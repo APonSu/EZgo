@@ -1,0 +1,243 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<Member.Models.Memb>
+
+
+@{
+    ViewBag.Title = "違規會員列表";
+}
+<style>
+    .Vmtbth {
+        border: solid;
+        /*        border-width: 1px;*/
+        border-color: #6ba7e8;
+        background-color: #6ba7e8;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        color: white;
+        padding: 8px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-right: 4%;
+        margin-left: -8px;
+    }
+
+    .Vmtbtd {
+        border: solid;
+        border-width: 1px;
+        border-color: #6ba7e8;
+        border-radius: 10px;
+        color: #6ba7e8;
+        padding: 8px;
+        /*padding-left: 20px;*/
+        /*padding-right: 20px;*/
+        /*margin-left: -6px;*/
+        min-width: 80%;
+    }
+
+    .VLo {
+        background-color: #989da3;
+        color: #ebebeb;
+    }
+
+    .VL {
+        background-color: #F3C74E;
+        color: #5D6160;
+    }
+
+    /*#Vdiv > div > div {
+        display:inline;
+        vertical-align:middle;
+    }*/
+    #Vdiv > div > div {
+        margin: 5px 0;
+    }
+</style>
+
+<h2 class="p-3 mt-3 text-muted text-center">查詢會員</h2>
+@using (Html.BeginForm())
+{
+    <div class="d-flex justify-content-around flex-wrap border rounded border-light p-3 mb-2">
+        <div class="col-md-8  d-flex justify-content-around flex-wrap">
+            <h5 class="col-12 text-muted text-center ">會員資訊</h5>
+            <div class="form-group col-12">
+                <label for="UsEmail" class="col-form-label">信箱</label>
+                <input type="text" id="UsEmail" name="UsEmail" class="form-control" value="@ViewBag.UsEmail" />
+            </div>
+            <div class="form-group col-4">
+                <label for="UsSex" class="col-form-label">性別</label>
+                <select id="UsSex" name="UsSex" class="form-control">
+                    <option value="0" selected>請選擇</option>
+                    <option value="true">男性</option>
+                    <option value="false">女性</option>
+                </select>
+            </div>
+
+            <div class="form-group col-4">
+                <label for="ITId" class="col-form-label">投資者類型類型</label>
+                <select id="ITId" name="ITId" class="form-control">
+                    <option value="0" selected>請選擇</option>
+                    <option value="1">保守型</option>
+                    <option value="2">穩健型</option>
+                    <option value="3">積極型</option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <label for="UsLkC" class="col-form-label">封鎖次數</label>
+                <select id="UsLkC" name="UsLkC" class="form-control">
+                    <option value="0">請選擇</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="form-group col-12 d-flex mt-2">
+                <label for="UsJnD" class="col-form-label d-inline w-25">加入時間</label>
+                <select id="ChJnD" name="ChJnD" class="form-control w-50">
+                    <option value="0">請選擇</option>
+                    <option value="1"><=</option>
+                    <option value="2">>=</option>
+                </select>
+                <input type="date" id="UsJnD" name="UsJnD" class="form-control d-inline" />
+            </div>
+        </div>
+        <div class="form-group col-md-4 text-center ">
+            <h5 class=" text-muted mb-4">會員狀態</h5>
+            <div class="mt-5 mb-5">
+                @*<input type="checkbox" class="btn-check" id="UsLks" name="UsLks" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="UsLks">封鎖中</label><br>*@
+                <div class="btn btn-primary d-flex col-6 justify-content-center m-auto " id="btnlock">封鎖中<span class="badge align-content-center"><input type="checkbox" id="UsLks" name="UsLks" style="width:20px;height:20px" /></span></div>
+
+                <div class="mt-3 "><div class="d-inline">距離</div><input type="text" id="UsULkT" name="UsULkT" class="form-control d-inline w-25" value="@ViewBag.UsULkT" /><div class="d-inline">天解鎖</div></div>
+            </div>
+            <input type="hidden" name="page" value="1" />
+            <input id="Submit1" type="submit" value="送出" class="mb-2 btn btn-success w-50" />
+
+        </div>
+    </div>
+
+}<div class="row">
+    <div class="col-12 p-2 text-white bg-primary text-center h4 rounded-pill border">查 詢 結 果</div>
+</div>
+@foreach (var item in Model)
+{
+    <div id="Vdiv" class="row p-1 d-flex flex-sm-fill ">
+        <div class="col-md-6 col-lg-4 col-12 mb-1">
+            <div>
+                <p class="Vmtbtd"><span class="Vmtbth">信箱</span>@item.UsEmail</p>
+            </div>
+            <div style="margin-top:20px;margin-bottom:20px;">
+                <span class="Vmtbtd mr-2 col-5"><span class="Vmtbth" style="border-width: 1px;">稱呼</span>@item.UsName</span>
+                <span class="Vmtbtd">
+                    <span class="Vmtbth col-5" style="border-width: 1px;">性別</span>
+                    @if (item.UsSex == true)
+                    {
+                        <span>男性</span>
+                    }
+                    @if (item.UsSex == false)
+                    {
+                        <span>女性</span>
+                    }
+                </span>
+            </div>
+            <div>
+                <p class="Vmtbtd"><span class="Vmtbth">電話</span>@item.UsPh</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-12 mb-1">
+            <div>
+
+                <p class="Vmtbtd"><span class="Vmtbth ">封鎖次數</span>@item.UsLkc</p>
+            </div>
+            <div>
+                @if (item.UsLks == true && item.UsLkc < 3)
+                {
+
+                    <p class="Vmtbtd VL"><span class="col-2 Vmtbth">封鎖狀態</span>停權中</p>
+                }
+                @if (item.UsLks == false && item.UsLkc < 3)
+                {
+                    <p class="Vmtbtd"><span class="col-2 Vmtbth">封鎖狀態</span>無</p>
+                }
+
+                @if (item.UsLkc == 3)
+                {
+                    <p class="Vmtbtd VLo"><span class="col-2 Vmtbth">封鎖狀態</span>永久停權</p>
+                }
+            </div>
+            <div>
+                @{ 
+                    if (item.ITId == 1)
+                    {
+                        <p class="Vmtbtd"><span class="Vmtbth">投資者類型</span>保守型</p>
+                    }
+                    if (item.ITId == 2)
+                    {
+                        <p class="Vmtbtd"><span class="Vmtbth">投資者類型</span>穩健型</p>
+                    }
+                    if (item.ITId == 3)
+                    {
+                        <p class="Vmtbtd"><span class="Vmtbth">投資者類型</span>積極型</p>
+
+                    }
+
+
+                }
+
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-12 mb-1">
+            <div>
+                <p class="Vmtbtd"><span class="Vmtbth">加入時間</span><small>@item.UsJnD</small></p>
+            </div>
+            <div>
+                <p class="Vmtbtd"><span class="Vmtbth ">封鎖時間</span><small>@item.UsLkT</small></p>
+            </div>
+
+            <div>
+                <p class="Vmtbtd"><span class="Vmtbth">解鎖時間</span><small>@item.UsULkT</small></p>
+            </div>
+        </div>
+    </div>
+}
+
+
+@Html.PagedListPager(Model, page => Url.Action("Violmember", new { page }))
+@*@Session["Authority"]*@
+@ViewBag.error
+<script>
+    $(document).ready(function () {
+
+        @if (ViewBag.error== "您無此權限") {
+            <text>
+                $(".body-content").html("您無此權限");
+            </text>
+
+        }
+
+    })
+
+    $('#btnlock').click(function () {
+        if ($("#UsLks:checked").length < 1) {
+            $('#UsLks').prop('checked', true);
+        }
+        else
+            $('#UsLks').prop('checked', false);
+    });
+
+    $("#UsSex option").eq(@ViewBag.UsSex).prop("selected", true);
+    $("#ITId option").eq(@ViewBag.ITId).prop("selected", true);
+    $("#UsLkC option").eq(@ViewBag.UsLkC).prop("selected", true);
+    $("#ChJnD option").eq(@ViewBag.ChJnD).prop("selected", true);
+    if (@ViewBag.UsJnD == 0001-01-01) {
+        $("#UsJnD").val("");
+    }
+    else {
+         $("#UsJnD").val("@ViewBag.UsJnD");
+    }
+
+    $("#UsLks").eq(@ViewBag.UsLks).prop("checked",true);
+</script>

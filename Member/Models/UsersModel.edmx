@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UsersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arti">
+          <Key>
+            <PropertyRef Name="ArId" />
+          </Key>
+          <Property Name="ArId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ArFromWeb" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ArCont" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ArPublishTime" Type="datetime" Nullable="false" />
+          <Property Name="ArType" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Collection">
+          <Key>
+            <PropertyRef Name="CoId" />
+          </Key>
+          <Property Name="CoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsId" Type="int" Nullable="false" />
+          <Property Name="StId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="InId" />
+          </Key>
+          <Property Name="InId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InName" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndustryD">
+          <Key>
+            <PropertyRef Name="InDId" />
+          </Key>
+          <Property Name="InDId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InId" Type="int" Nullable="false" />
+          <Property Name="StId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mager">
+          <Key>
+            <PropertyRef Name="MaId" />
+          </Key>
+          <Property Name="MaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaAct" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Authority" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Memb">
+          <Key>
+            <PropertyRef Name="UsId" />
+          </Key>
+          <Property Name="UsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsName" Type="nchar" MaxLength="10" />
+          <Property Name="UsSex" Type="bit" />
+          <Property Name="UsPh" Type="nvarchar" MaxLength="50" />
+          <Property Name="UsJnD" Type="datetime" />
+          <Property Name="UsVdS" Type="bit" Nullable="false" />
+          <Property Name="ITId" Type="int" />
+          <Property Name="UsLks" Type="bit" Nullable="false" />
+          <Property Name="UsLkT" Type="datetime" />
+          <Property Name="UsULkT" Type="datetime" />
+          <Property Name="UsLkc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mes">
+          <Key>
+            <PropertyRef Name="MsId" />
+          </Key>
+          <Property Name="MsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MsP" Type="int" Nullable="false" />
+          <Property Name="MsR" Type="int" Nullable="false" />
+          <Property Name="UsId" Type="int" Nullable="false" />
+          <Property Name="StId" Type="int" Nullable="false" />
+          <Property Name="MsDate" Type="datetime" Nullable="false" />
+          <Property Name="MsCont" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MsGC" Type="int" Nullable="false" />
+          <Property Name="MsBC" Type="int" Nullable="false" />
+          <Property Name="MsRpt" Type="bit" />
+          <Property Name="MsE" Type="bit" />
+        </EntityType>
+        <EntityType Name="MesR">
+          <Key>
+            <PropertyRef Name="MsRId" />
+          </Key>
+          <Property Name="MsRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MsId" Type="int" Nullable="false" />
+          <Property Name="UsId" Type="int" Nullable="false" />
+          <Property Name="StId" Type="int" Nullable="false" />
+          <Property Name="MsRCont" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MsRDate" Type="datetime" Nullable="false" />
+          <Property Name="MsCheck" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MesS">
+          <Key>
+            <PropertyRef Name="MsSId" />
+          </Key>
+          <Property Name="MsSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MsId" Type="int" Nullable="false" />
+          <Property Name="UsId" Type="int" Nullable="false" />
+          <Property Name="StId" Type="int" Nullable="false" />
+          <Property Name="MsGd" Type="int" Nullable="false" />
+          <Property Name="MsBd" Type="int" Nullable="false" />
+          <Property Name="MsSDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="StId" />
+          </Key>
+          <Property Name="StId" Type="int" Nullable="false" />
+          <Property Name="StName" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Collection_ToTable">
+          <End Role="Memb" Type="Self.Memb" Multiplicity="1" />
+          <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collection_ToTable_1">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryD_ToTable">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="IndustryD" Type="Self.IndustryD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="IndustryD">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryD_ToTable_1">
+          <End Role="Industry" Type="Self.Industry" Multiplicity="1" />
+          <End Role="IndustryD" Type="Self.IndustryD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="InId" />
+            </Principal>
+            <Dependent Role="IndustryD">
+              <PropertyRef Name="InId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mes_ToTable">
+          <End Role="Memb" Type="Self.Memb" Multiplicity="1" />
+          <End Role="Mes" Type="Self.Mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="Mes">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mes_ToTable_1">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="Mes" Type="Self.Mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="Mes">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable">
+          <End Role="Memb" Type="Self.Memb" Multiplicity="1" />
+          <End Role="MesR" Type="Self.MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable_1">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="MesR" Type="Self.MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable_2">
+          <End Role="Mes" Type="Self.Mes" Multiplicity="1" />
+          <End Role="MesR" Type="Self.MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mes">
+              <PropertyRef Name="MsId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="MsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable">
+          <End Role="Memb" Type="Self.Memb" Multiplicity="1" />
+          <End Role="MesS" Type="Self.MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable_1">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+          <End Role="MesS" Type="Self.MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable_2">
+          <End Role="Mes" Type="Self.Mes" Multiplicity="1" />
+          <End Role="MesS" Type="Self.MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mes">
+              <PropertyRef Name="MsId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="MsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UsersModelStoreContainer">
+          <EntitySet Name="Arti" EntityType="Self.Arti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Collection" EntityType="Self.Collection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Industry" EntityType="Self.Industry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndustryD" EntityType="Self.IndustryD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mager" EntityType="Self.Mager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Memb" EntityType="Self.Memb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mes" EntityType="Self.Mes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesR" EntityType="Self.MesR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesS" EntityType="Self.MesS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Collection_ToTable" Association="Self.FK_Collection_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collection_ToTable_1" Association="Self.FK_Collection_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryD_ToTable" Association="Self.FK_IndustryD_ToTable">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="IndustryD" EntitySet="IndustryD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryD_ToTable_1" Association="Self.FK_IndustryD_ToTable_1">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="IndustryD" EntitySet="IndustryD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mes_ToTable" Association="Self.FK_Mes_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="Mes" EntitySet="Mes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mes_ToTable_1" Association="Self.FK_Mes_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="Mes" EntitySet="Mes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable" Association="Self.FK_MesR_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable_1" Association="Self.FK_MesR_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable_2" Association="Self.FK_MesR_ToTable_2">
+            <End Role="Mes" EntitySet="Mes" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable" Association="Self.FK_MesS_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable_1" Association="Self.FK_MesS_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable_2" Association="Self.FK_MesS_ToTable_2">
+            <End Role="Mes" EntitySet="Mes" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UsersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UsersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arti" EntityType="UsersModel.Arti" />
+          <EntitySet Name="Collection" EntityType="UsersModel.Collection" />
+          <EntitySet Name="Industry" EntityType="UsersModel.Industry" />
+          <EntitySet Name="IndustryD" EntityType="UsersModel.IndustryD" />
+          <EntitySet Name="Mager" EntityType="UsersModel.Mager" />
+          <EntitySet Name="Memb" EntityType="UsersModel.Memb" />
+          <EntitySet Name="Mes" EntityType="UsersModel.Mes" />
+          <EntitySet Name="MesR" EntityType="UsersModel.MesR" />
+          <EntitySet Name="MesS" EntityType="UsersModel.MesS" />
+          <EntitySet Name="Stock" EntityType="UsersModel.Stock" />
+          <AssociationSet Name="FK_Collection_ToTable" Association="UsersModel.FK_Collection_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collection_ToTable_1" Association="UsersModel.FK_Collection_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryD_ToTable_1" Association="UsersModel.FK_IndustryD_ToTable_1">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="IndustryD" EntitySet="IndustryD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryD_ToTable" Association="UsersModel.FK_IndustryD_ToTable">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="IndustryD" EntitySet="IndustryD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mes_ToTable" Association="UsersModel.FK_Mes_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="Mes" EntitySet="Mes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable" Association="UsersModel.FK_MesR_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable" Association="UsersModel.FK_MesS_ToTable">
+            <End Role="Memb" EntitySet="Memb" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mes_ToTable_1" Association="UsersModel.FK_Mes_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="Mes" EntitySet="Mes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable_2" Association="UsersModel.FK_MesR_ToTable_2">
+            <End Role="Mes" EntitySet="Mes" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable_2" Association="UsersModel.FK_MesS_ToTable_2">
+            <End Role="Mes" EntitySet="Mes" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesR_ToTable_1" Association="UsersModel.FK_MesR_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="MesR" EntitySet="MesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesS_ToTable_1" Association="UsersModel.FK_MesS_ToTable_1">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="MesS" EntitySet="MesS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Arti">
+          <Key>
+            <PropertyRef Name="ArId" />
+          </Key>
+          <Property Name="ArId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArFromWeb" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ArCont" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ArPublishTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ArType" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Collection">
+          <Key>
+            <PropertyRef Name="CoId" />
+          </Key>
+          <Property Name="CoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsId" Type="Int32" Nullable="false" />
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Memb" Relationship="UsersModel.FK_Collection_ToTable" FromRole="Collection" ToRole="Memb" />
+          <NavigationProperty Name="Stock" Relationship="UsersModel.FK_Collection_ToTable_1" FromRole="Collection" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="InId" />
+          </Key>
+          <Property Name="InId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="IndustryD" Relationship="UsersModel.FK_IndustryD_ToTable_1" FromRole="Industry" ToRole="IndustryD" />
+        </EntityType>
+        <EntityType Name="IndustryD">
+          <Key>
+            <PropertyRef Name="InDId" />
+          </Key>
+          <Property Name="InDId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InId" Type="Int32" Nullable="false" />
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Industry" Relationship="UsersModel.FK_IndustryD_ToTable_1" FromRole="IndustryD" ToRole="Industry" />
+          <NavigationProperty Name="Stock" Relationship="UsersModel.FK_IndustryD_ToTable" FromRole="IndustryD" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="Mager">
+          <Key>
+            <PropertyRef Name="MaId" />
+          </Key>
+          <Property Name="MaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaAct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Authority" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Memb">
+          <Key>
+            <PropertyRef Name="UsId" />
+          </Key>
+          <Property Name="UsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UsPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UsName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UsSex" Type="Boolean" />
+          <Property Name="UsPh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UsJnD" Type="DateTime" Precision="3" />
+          <Property Name="UsVdS" Type="Boolean" Nullable="false" />
+          <Property Name="ITId" Type="Int32" />
+          <Property Name="UsLks" Type="Boolean" Nullable="false" />
+          <Property Name="UsLkT" Type="DateTime" Precision="3" />
+          <Property Name="UsULkT" Type="DateTime" Precision="3" />
+          <Property Name="UsLkc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Collection" Relationship="UsersModel.FK_Collection_ToTable" FromRole="Memb" ToRole="Collection" />
+          <NavigationProperty Name="Mes" Relationship="UsersModel.FK_Mes_ToTable" FromRole="Memb" ToRole="Mes" />
+          <NavigationProperty Name="MesR" Relationship="UsersModel.FK_MesR_ToTable" FromRole="Memb" ToRole="MesR" />
+          <NavigationProperty Name="MesS" Relationship="UsersModel.FK_MesS_ToTable" FromRole="Memb" ToRole="MesS" />
+        </EntityType>
+        <EntityType Name="Mes">
+          <Key>
+            <PropertyRef Name="MsId" />
+          </Key>
+          <Property Name="MsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MsP" Type="Int32" Nullable="false" />
+          <Property Name="MsR" Type="Int32" Nullable="false" />
+          <Property Name="UsId" Type="Int32" Nullable="false" />
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <Property Name="MsDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MsCont" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MsGC" Type="Int32" Nullable="false" />
+          <Property Name="MsBC" Type="Int32" Nullable="false" />
+          <Property Name="MsRpt" Type="Boolean" />
+          <Property Name="MsE" Type="Boolean" />
+          <NavigationProperty Name="Memb" Relationship="UsersModel.FK_Mes_ToTable" FromRole="Mes" ToRole="Memb" />
+          <NavigationProperty Name="Stock" Relationship="UsersModel.FK_Mes_ToTable_1" FromRole="Mes" ToRole="Stock" />
+          <NavigationProperty Name="MesR" Relationship="UsersModel.FK_MesR_ToTable_2" FromRole="Mes" ToRole="MesR" />
+          <NavigationProperty Name="MesS" Relationship="UsersModel.FK_MesS_ToTable_2" FromRole="Mes" ToRole="MesS" />
+        </EntityType>
+        <EntityType Name="MesR">
+          <Key>
+            <PropertyRef Name="MsRId" />
+          </Key>
+          <Property Name="MsRId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MsId" Type="Int32" Nullable="false" />
+          <Property Name="UsId" Type="Int32" Nullable="false" />
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <Property Name="MsRCont" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MsRDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MsCheck" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Memb" Relationship="UsersModel.FK_MesR_ToTable" FromRole="MesR" ToRole="Memb" />
+          <NavigationProperty Name="Mes" Relationship="UsersModel.FK_MesR_ToTable_2" FromRole="MesR" ToRole="Mes" />
+          <NavigationProperty Name="Stock" Relationship="UsersModel.FK_MesR_ToTable_1" FromRole="MesR" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="MesS">
+          <Key>
+            <PropertyRef Name="MsSId" />
+          </Key>
+          <Property Name="MsSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MsId" Type="Int32" Nullable="false" />
+          <Property Name="UsId" Type="Int32" Nullable="false" />
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <Property Name="MsGd" Type="Int32" Nullable="false" />
+          <Property Name="MsBd" Type="Int32" Nullable="false" />
+          <Property Name="MsSDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Memb" Relationship="UsersModel.FK_MesS_ToTable" FromRole="MesS" ToRole="Memb" />
+          <NavigationProperty Name="Mes" Relationship="UsersModel.FK_MesS_ToTable_2" FromRole="MesS" ToRole="Mes" />
+          <NavigationProperty Name="Stock" Relationship="UsersModel.FK_MesS_ToTable_1" FromRole="MesS" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="StId" />
+          </Key>
+          <Property Name="StId" Type="Int32" Nullable="false" />
+          <Property Name="StName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Collection" Relationship="UsersModel.FK_Collection_ToTable_1" FromRole="Stock" ToRole="Collection" />
+          <NavigationProperty Name="IndustryD" Relationship="UsersModel.FK_IndustryD_ToTable" FromRole="Stock" ToRole="IndustryD" />
+          <NavigationProperty Name="Mes" Relationship="UsersModel.FK_Mes_ToTable_1" FromRole="Stock" ToRole="Mes" />
+          <NavigationProperty Name="MesR" Relationship="UsersModel.FK_MesR_ToTable_1" FromRole="Stock" ToRole="MesR" />
+          <NavigationProperty Name="MesS" Relationship="UsersModel.FK_MesS_ToTable_1" FromRole="Stock" ToRole="MesS" />
+        </EntityType>
+        <Association Name="FK_Collection_ToTable">
+          <End Type="UsersModel.Memb" Role="Memb" Multiplicity="1" />
+          <End Type="UsersModel.Collection" Role="Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collection_ToTable_1">
+          <End Type="UsersModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="UsersModel.Collection" Role="Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryD_ToTable_1">
+          <End Type="UsersModel.Industry" Role="Industry" Multiplicity="1" />
+          <End Type="UsersModel.IndustryD" Role="IndustryD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="InId" />
+            </Principal>
+            <Dependent Role="IndustryD">
+              <PropertyRef Name="InId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryD_ToTable">
+          <End Type="UsersModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="UsersModel.IndustryD" Role="IndustryD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="IndustryD">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mes_ToTable">
+          <End Type="UsersModel.Memb" Role="Memb" Multiplicity="1" />
+          <End Type="UsersModel.Mes" Role="Mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="Mes">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable">
+          <End Type="UsersModel.Memb" Role="Memb" Multiplicity="1" />
+          <End Type="UsersModel.MesR" Role="MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable">
+          <End Type="UsersModel.Memb" Role="Memb" Multiplicity="1" />
+          <End Type="UsersModel.MesS" Role="MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memb">
+              <PropertyRef Name="UsId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="UsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mes_ToTable_1">
+          <End Type="UsersModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="UsersModel.Mes" Role="Mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="Mes">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable_2">
+          <End Type="UsersModel.Mes" Role="Mes" Multiplicity="1" />
+          <End Type="UsersModel.MesR" Role="MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mes">
+              <PropertyRef Name="MsId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="MsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable_2">
+          <End Type="UsersModel.Mes" Role="Mes" Multiplicity="1" />
+          <End Type="UsersModel.MesS" Role="MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mes">
+              <PropertyRef Name="MsId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="MsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesR_ToTable_1">
+          <End Type="UsersModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="UsersModel.MesR" Role="MesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="MesR">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesS_ToTable_1">
+          <End Type="UsersModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="UsersModel.MesS" Role="MesS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StId" />
+            </Principal>
+            <Dependent Role="MesS">
+              <PropertyRef Name="StId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UsersModelStoreContainer" CdmEntityContainer="UsersEntities">
+          <EntitySetMapping Name="Arti">
+            <EntityTypeMapping TypeName="UsersModel.Arti">
+              <MappingFragment StoreEntitySet="Arti">
+                <ScalarProperty Name="ArType" ColumnName="ArType" />
+                <ScalarProperty Name="ArPublishTime" ColumnName="ArPublishTime" />
+                <ScalarProperty Name="ArCont" ColumnName="ArCont" />
+                <ScalarProperty Name="ArFromWeb" ColumnName="ArFromWeb" />
+                <ScalarProperty Name="ArTitle" ColumnName="ArTitle" />
+                <ScalarProperty Name="ArId" ColumnName="ArId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collection">
+            <EntityTypeMapping TypeName="UsersModel.Collection">
+              <MappingFragment StoreEntitySet="Collection">
+                <ScalarProperty Name="StId" ColumnName="StId" />
+                <ScalarProperty Name="UsId" ColumnName="UsId" />
+                <ScalarProperty Name="CoId" ColumnName="CoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Industry">
+            <EntityTypeMapping TypeName="UsersModel.Industry">
+              <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="InName" ColumnName="InName" />
+                <ScalarProperty Name="InId" ColumnName="InId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryD">
+            <EntityTypeMapping TypeName="UsersModel.IndustryD">
+              <MappingFragment StoreEntitySet="IndustryD">
+                <ScalarProperty Name="StId" ColumnName="StId" />
+                <ScalarProperty Name="InId" ColumnName="InId" />
+                <ScalarProperty Name="InDId" ColumnName="InDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mager">
+            <EntityTypeMapping TypeName="UsersModel.Mager">
+              <MappingFragment StoreEntitySet="Mager">
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+                <ScalarProperty Name="MaPwd" ColumnName="MaPwd" />
+                <ScalarProperty Name="MaAct" ColumnName="MaAct" />
+                <ScalarProperty Name="MaId" ColumnName="MaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memb">
+            <EntityTypeMapping TypeName="UsersModel.Memb">
+              <MappingFragment StoreEntitySet="Memb">
+                <ScalarProperty Name="UsLkc" ColumnName="UsLkc" />
+                <ScalarProperty Name="UsULkT" ColumnName="UsULkT" />
+                <ScalarProperty Name="UsLkT" ColumnName="UsLkT" />
+                <ScalarProperty Name="UsLks" ColumnName="UsLks" />
+                <ScalarProperty Name="ITId" ColumnName="ITId" />
+                <ScalarProperty Name="UsVdS" ColumnName="UsVdS" />
+                <ScalarProperty Name="UsJnD" ColumnName="UsJnD" />
+                <ScalarProperty Name="UsPh" ColumnName="UsPh" />
+                <ScalarProperty Name="UsSex" ColumnName="UsSex" />
+                <ScalarProperty Name="UsName" ColumnName="UsName" />
+                <ScalarProperty Name="UsPassword" ColumnName="UsPassword" />
+                <ScalarProperty Name="UsEmail" ColumnName="UsEmail" />
+                <ScalarProperty Name="UsId" ColumnName="UsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mes">
+            <EntityTypeMapping TypeName="UsersModel.Mes">
+              <MappingFragment StoreEntitySet="Mes">
+                <ScalarProperty Name="MsE" ColumnName="MsE" />
+                <ScalarProperty Name="MsRpt" ColumnName="MsRpt" />
+                <ScalarProperty Name="MsBC" ColumnName="MsBC" />
+                <ScalarProperty Name="MsGC" ColumnName="MsGC" />
+                <ScalarProperty Name="MsCont" ColumnName="MsCont" />
+                <ScalarProperty Name="MsDate" ColumnName="MsDate" />
+                <ScalarProperty Name="StId" ColumnName="StId" />
+                <ScalarProperty Name="UsId" ColumnName="UsId" />
+                <ScalarProperty Name="MsR" ColumnName="MsR" />
+                <ScalarProperty Name="MsP" ColumnName="MsP" />
+                <ScalarProperty Name="MsId" ColumnName="MsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesR">
+            <EntityTypeMapping TypeName="UsersModel.MesR">
+              <MappingFragment StoreEntitySet="MesR">
+                <ScalarProperty Name="MsCheck" ColumnName="MsCheck" />
+                <ScalarProperty Name="MsRDate" ColumnName="MsRDate" />
+                <ScalarProperty Name="MsRCont" ColumnName="MsRCont" />
+                <ScalarProperty Name="StId" ColumnName="StId" />
+                <ScalarProperty Name="UsId" ColumnName="UsId" />
+                <ScalarProperty Name="MsId" ColumnName="MsId" />
+                <ScalarProperty Name="MsRId" ColumnName="MsRId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesS">
+            <EntityTypeMapping TypeName="UsersModel.MesS">
+              <MappingFragment StoreEntitySet="MesS">
+                <ScalarProperty Name="MsSDate" ColumnName="MsSDate" />
+                <ScalarProperty Name="MsBd" ColumnName="MsBd" />
+                <ScalarProperty Name="MsGd" ColumnName="MsGd" />
+                <ScalarProperty Name="StId" ColumnName="StId" />
+                <ScalarProperty Name="UsId" ColumnName="UsId" />
+                <ScalarProperty Name="MsId" ColumnName="MsId" />
+                <ScalarProperty Name="MsSId" ColumnName="MsSId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock">
+            <EntityTypeMapping TypeName="UsersModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="StName" ColumnName="StName" />
+                <ScalarProperty Name="StId" ColumnName="StId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

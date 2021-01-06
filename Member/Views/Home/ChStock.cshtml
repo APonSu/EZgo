@@ -1,0 +1,1772 @@
+﻿<style>
+    #bgCT > div {
+        border: hidden;
+        background-color: #6ba7e8;
+        border-radius: 30px;
+        width: 30px;
+        height: 30px;
+        margin: 1%;
+    }
+
+</style>
+@{
+    ViewBag.Title = "ChStock";
+}
+<div id="bgCT" class="row justify-content-center mb-5 align-items-center mb-2">
+    <hr style="width:10%;height:1px;margin-right:5px;" />
+    <div style="background-color: #F3C74E;"></div>
+    <div style="background-color: #EA5457;"></div>
+    <div style="background-color: #61A49D;"></div>
+    <div style="background-color: #205289;"></div>
+    <div style="background-color: #5D6160;"></div>
+    <div style="background-color: #E3A98D;"></div>
+    <div style="background-color: #F7E2D6;"></div>
+    <hr style="width:10%;height:1px;margin-left:5px;" />
+</div>
+
+<div class="container row my-3">
+    <div class="col-2 border-right border-secondary pr-0">
+        <ul class="nav nav-pills flex-column text-center" id="StTabs" role="tablist">
+            <li class="nav-item" style="margin-right:-2px;" role="presentation"><a class="nav-link active" data-toggle="tab" href="#tab01">基本面</a></li>
+            <li class="nav-item" style="margin-right:-2px;" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab02">財務面</a></li>
+            <li class="nav-item" style="margin-right:-2px;" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab03">市場面</a></li>
+            <li class="nav-item" style="margin-right:-2px;" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab04">技術面</a></li>
+            <li class="nav-item" style="margin-right:-2px;" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab05">籌碼面</a></li>
+        </ul>
+    </div>
+    <div class="col-10">
+        <div class="tab-content" id="StTabcontent">
+            <div class="tab-pane fade show active text-center " role="tabpanel" aria-labelledby="tab01-tab" id="tab01">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="col-4">
+                        <p>最近一季EPS</p>
+                        <p id="t1" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c1" />
+                        <select id="b1" class="w-25">
+                            <option value="552">0</option>
+                            <option value="553">0.25</option>
+                            <option value="554">0.5</option>
+                            <option value="555">0.75</option>
+                            <option value="556">1</option>
+                            <option value="557">1.5</option>
+                            <option value="558">2</option>
+                            <option value="559">2.5</option>
+                            <option value="560">3</option>
+                        </select>
+                        <select id="b2" class="w-25">
+                            <option value="552">0</option>
+                            <option value="553">0.25</option>
+                            <option value="554">0.5</option>
+                            <option value="555">0.75</option>
+                            <option value="556">1</option>
+                            <option value="557">1.5</option>
+                            <option value="558">2</option>
+                            <option value="559">2.5</option>
+                            <option value="560">3</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>本益比</p>
+                        <p id="t2" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c2" />
+                        <select id="b3" class="w-25">
+                            <option value="562">3</option>
+                            <option value="563">5</option>
+                            <option value="564">7</option>
+                            <option value="565">10</option>
+                            <option value="566">15</option>
+                            <option value="567">20</option>
+                            <option value="568">25</option>
+                            <option value="569">30</option>
+                            <option value="570">40</option>
+                        </select>
+                        <select id="b4" class="w-25">
+                            <option value="562">3</option>
+                            <option value="563">5</option>
+                            <option value="564">7</option>
+                            <option value="565">10</option>
+                            <option value="566">15</option>
+                            <option value="567">20</option>
+                            <option value="568">25</option>
+                            <option value="569">30</option>
+                            <option value="570">40</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>股價/淨值比(P/B)</p>
+                        <p id="t3" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c3" />
+                        <select id="b5" class="w-25">
+                            <option value="1219">0.75</option>
+                            <option value="1220">1</option>
+                            <option value="1221">1.5</option>
+                            <option value="1222">2</option>
+                            <option value="1223">2.5</option>
+                            <option value="1224">3</option>
+                            <option value="1225">4</option>
+                            <option value="1226">5</option>
+                            <option value="1227">8</option>
+                        </select>
+                        <select id="b6" class="w-25">
+                            <option value="1219">0.75</option>
+                            <option value="1220">1</option>
+                            <option value="1221">1.5</option>
+                            <option value="1222">2</option>
+                            <option value="1223">2.5</option>
+                            <option value="1224">3</option>
+                            <option value="1225">4</option>
+                            <option value="1226">5</option>
+                            <option value="1227">8</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>最近現金股利</p>
+                        <p id="t4" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c4" />
+                        <select id="b7" class="w-25">
+                            <option value="101101">0</option>
+                            <option value="101102">0.3</option>
+                            <option value="101103">0.5</option>
+                            <option value="101104">0.8</option>
+                            <option value="101105">1</option>
+                            <option value="101106">1.5</option>
+                            <option value="101107">2</option>
+                            <option value="101108">3</option>
+                            <option value="101109">5</option>
+                        </select>
+                        <select id="b8" class="w-25">
+                            <option value="101101">0</option>
+                            <option value="101102">0.3</option>
+                            <option value="101103">0.5</option>
+                            <option value="101104">0.8</option>
+                            <option value="101105">1</option>
+                            <option value="101106">1.5</option>
+                            <option value="101107">2</option>
+                            <option value="101108">3</option>
+                            <option value="101109">5</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>股本</p>
+                        <p id="t5" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c5" />
+                        <select id="b9" class="w-25">
+                            <option value="100532">2</option>
+                            <option value="100533">4</option>
+                            <option value="100534">6</option>
+                            <option value="100535">8</option>
+                            <option value="100536">10</option>
+                            <option value="100537">20</option>
+                            <option value="100538">30</option>
+                            <option value="100539">50</option>
+                            <option value="100540">40</option>
+                        </select>
+                        <select id="b10" class="w-25">
+                            <option value="100532">2</option>
+                            <option value="100533">4</option>
+                            <option value="100534">6</option>
+                            <option value="100535">8</option>
+                            <option value="100536">10</option>
+                            <option value="100537">20</option>
+                            <option value="100538">30</option>
+                            <option value="100539">50</option>
+                            <option value="100540">40</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>現金流量</p>
+                        <p id="t6" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c6" />
+                        <select id="b11" class="w-25">
+                            <option value="101111">0</option>
+                            <option value="101112">0.5</option>
+                            <option value="101113">1</option>
+                            <option value="101114">2</option>
+                            <option value="101115">4</option>
+                            <option value="101116">6</option>
+                            <option value="101117">10</option>
+                            <option value="101118">20</option>
+                            <option value="101119">30</option>
+                        </select>
+                        <select id="b12" class="w-25">
+                            <option value="101111">0</option>
+                            <option value="101112">0.5</option>
+                            <option value="101113">1</option>
+                            <option value="101114">2</option>
+                            <option value="101115">4</option>
+                            <option value="101116">6</option>
+                            <option value="101117">10</option>
+                            <option value="101118">20</option>
+                            <option value="101119">30</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade text-center " role="tabpanel" aria-labelledby="tab02-tab" id="tab02">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="col-4">
+                        <p>最近一季毛利率</p>
+                        <p id="t7" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c7" />
+                        <select id="b13" class="w-25">
+                            <option value="582">5</option>
+                            <option value="583">7</option>
+                            <option value="584">10</option>
+                            <option value="585">13</option>
+                            <option value="586">16</option>
+                            <option value="587">20</option>
+                            <option value="588">25</option>
+                            <option value="589">30</option>
+                            <option value="590">40</option>
+                        </select>
+                        <select id="b14" class="w-25">
+                            <option value="582">5</option>
+                            <option value="583">7</option>
+                            <option value="584">10</option>
+                            <option value="585">13</option>
+                            <option value="586">16</option>
+                            <option value="587">20</option>
+                            <option value="588">25</option>
+                            <option value="589">30</option>
+                            <option value="590">40</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>最近一季股東權益率(ROE)</p>
+                        <p id="t8" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c8" />
+                        <select id="b15" class="w-25">
+                            <option value="592">0</option>
+                            <option value="593">1</option>
+                            <option value="594">2</option>
+                            <option value="595">4</option>
+                            <option value="596">3</option>
+                            <option value="597">8</option>
+                            <option value="598">10</option>
+                            <option value="599">15</option>
+                            <option value="600">20</option>
+                        </select>
+                        <select id="b16" class="w-25">
+                            <option value="592">0</option>
+                            <option value="593">1</option>
+                            <option value="594">2</option>
+                            <option value="595">4</option>
+                            <option value="596">3</option>
+                            <option value="597">8</option>
+                            <option value="598">10</option>
+                            <option value="599">15</option>
+                            <option value="600">20</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>資產報酬率(ROA)</p>
+                        <p id="t9" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c9" />
+                        <select id="b17" class="w-25">
+                            <option value="101121">0</option>
+                            <option value="101122">1</option>
+                            <option value="101123">2</option>
+                            <option value="101124">3</option>
+                            <option value="101125">4</option>
+                            <option value="101126">5</option>
+                            <option value="101127">6</option>
+                            <option value="101128">7</option>
+                            <option value="101129">8</option>
+                        </select>
+                        <select id="b18" class="w-25">
+                            <option value="101121">0</option>
+                            <option value="101122">1</option>
+                            <option value="101123">2</option>
+                            <option value="101124">3</option>
+                            <option value="101125">4</option>
+                            <option value="101126">5</option>
+                            <option value="101127">6</option>
+                            <option value="101128">7</option>
+                            <option value="101129">8</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>最近一季營益率</p>
+                        <p id="t10" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c10" />
+                        <select id="b19" class="w-25">
+                            <option value="1229">0</option>
+                            <option value="1230">3</option>
+                            <option value="1231">5</option>
+                            <option value="1232">8</option>
+                            <option value="1233">10</option>
+                            <option value="1234">15</option>
+                            <option value="1235">20</option>
+                            <option value="1236">25</option>
+                            <option value="1237">30</option>
+                        </select>
+                        <select id="b20" class="w-25">
+                            <option value="1229">0</option>
+                            <option value="1230">3</option>
+                            <option value="1231">5</option>
+                            <option value="1232">8</option>
+                            <option value="1233">10</option>
+                            <option value="1234">15</option>
+                            <option value="1235">20</option>
+                            <option value="1236">25</option>
+                            <option value="1237">30</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>負債比率</p>
+                        <p id="t11" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c11" />
+                        <select id="b21" class="w-25">
+                            <option value="101131">10</option>
+                            <option value="101132">20</option>
+                            <option value="101133">30</option>
+                            <option value="101134">40</option>
+                            <option value="101135">50</option>
+                            <option value="101136">60</option>
+                            <option value="101137">70</option>
+                            <option value="101138">80</option>
+                            <option value="101139">90</option>
+                        </select>
+                        <select id="b22" class="w-25">
+                            <option value="101131">10</option>
+                            <option value="101132">20</option>
+                            <option value="101133">30</option>
+                            <option value="101134">40</option>
+                            <option value="101135">50</option>
+                            <option value="101136">60</option>
+                            <option value="101137">70</option>
+                            <option value="101138">80</option>
+                            <option value="101139">90</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>淨值</p>
+                        <p id="t12" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c12" />
+                        <select id="b23" class="w-25">
+                            <option value="572">10</option>
+                            <option value="573">12</option>
+                            <option value="574">14</option>
+                            <option value="575">17</option>
+                            <option value="576">20</option>
+                            <option value="577">25</option>
+                            <option value="578">30</option>
+                            <option value="579">35</option>
+                            <option value="580">40</option>
+                        </select>
+                        <select id="b24" class="w-25">
+                            <option value="572">10</option>
+                            <option value="573">12</option>
+                            <option value="574">14</option>
+                            <option value="575">17</option>
+                            <option value="576">20</option>
+                            <option value="577">25</option>
+                            <option value="578">30</option>
+                            <option value="579">35</option>
+                            <option value="580">40</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-center" role="tabpanel" aria-labelledby="tab03-tab" id="tab03">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="col-4">
+                        <p class="mb-0">成交價站上5MA</p>
+                        <p class="text-danger mt-0"><small>(不可同時點選成交價站上及跌破5MA)</small></p>
+                        <p id="t13" class="w-25"></p>
+                        <input type="checkbox" id="c13" />
+                    </div>
+                    <div class="col-4">
+                        <p class="mb-0">成交價跌破5MA</p>
+                        <br />
+                        <p id="t14" class="w-25"></p>
+                        <input type="checkbox" id="c14" />
+                    </div>
+                    <div class="col-4">
+                        <p class="mb-0">成交價站上240MA</p>
+                        <br />
+                        <p id="t15" class="w-25"></p>
+                        <input type="checkbox" id="c15" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p class="mb-0">成交價連續上漲</p>
+                        <p class="text-danger mt-0"><small>(不可同時點選成交價連續上漲及下跌)</small></p>
+                        <p id="t16" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c16" />
+                        <select id="b31" class="w-25">
+                            <option value="100042">1</option>
+                            <option value="100043">2</option>
+                            <option value="100044">3</option>
+                            <option value="100045">4</option>
+                            <option value="100046">5</option>
+                        </select>
+                        <select id="b32" class="w-25">
+                            <option value="100042">1</option>
+                            <option value="100043">2</option>
+                            <option value="100044">3</option>
+                            <option value="100045">4</option>
+                            <option value="100046">5</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p class="mb-3">成交價連續下跌</p>
+                        <br />
+                        <p id="t17" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c17" />
+                        <select id="b33" class="w-25">
+                            <option value="100047">1</option>
+                            <option value="100048">2</option>
+                            <option value="100049">3</option>
+                            <option value="100050">4</option>
+                            <option value="100051">5</option>
+                        </select>
+                        <select id="b34" class="w-25">
+                            <option value="100047">1</option>
+                            <option value="100048">2</option>
+                            <option value="100049">3</option>
+                            <option value="100050">4</option>
+                            <option value="100051">5</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p class="mb-3">成交量連續放大</p>
+                        <br />
+                        <p id="t18" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c18" />
+                        <select id="b35" class="w-25">
+                            <option value="100052">1</option>
+                            <option value="100053">2</option>
+                            <option value="100054">3</option>
+                            <option value="100055">4</option>
+                            <option value="100056">5</option>
+                        </select>
+                        <select id="b36" class="w-25">
+                            <option value="100052">1</option>
+                            <option value="100053">2</option>
+                            <option value="100054">3</option>
+                            <option value="100055">4</option>
+                            <option value="100056">5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-center " role="tabpanel" aria-labelledby="tab04-tab" id="tab04">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="col-4">
+                        <p>5MA突破20MA黃金交叉</p>
+                        <p id="t19"></p>
+                        <input type="checkbox" id="c19" />
+                    </div>
+                    <div class="col-4">
+                        <p>5MA跌破20MA死亡交叉</p>
+                        <p id="t20"></p>
+                        <input type="checkbox" id="c20" />
+                    </div>
+                    <div class="col-4">
+                        <p>20MA突破60MA黃金交叉</p>
+                        <p id="t21"></p>
+                        <input type="checkbox" id="c21" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p> 20MA跌破60MA死亡交叉</p>
+                        <p id="t22"></p>
+                        <input type="checkbox" id="c22" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>10MTM 由負轉正</p>
+                        <p id="t23"></p>
+                        <input type="checkbox" id="c23" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>10MTM 由正轉負</p>
+                        <p id="t24"></p>
+                        <input type="checkbox" id="c24" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>6RSI 向上穿過 12RSI</p>
+                        <span id="t25"></span>
+                        <input type="checkbox" id="c25" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>6RSI 向下跌破 12RSI</p>
+                        <p id="t26"></p>
+                        <input type="checkbox" id="c26" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>日線KD黃金交叉買點</p>
+                        <p id="t27"></p>
+                        <input type="checkbox" id="c27" />
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>週K>週D</p>
+                        <p id="t28"></p>
+                        <input type="checkbox" id="c28" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-center " role="tabpanel" aria-labelledby="tab05-tab" id="tab05">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="col-4">
+                        <p>三大法人連續買超</p>
+                        <p id="t29" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c29" />
+                        <select id="b57" class="w-25">
+                            <option value="1213">1</option>
+                            <option value="1214">2</option>
+                            <option value="1215">3</option>
+                            <option value="1216">4</option>
+                            <option value="1217">5</option>
+                            <option value="1218">6</option>
+                        </select>
+                        <select id="b58" class="w-25">
+                            <option value="1213">1</option>
+                            <option value="1214">2</option>
+                            <option value="1215">3</option>
+                            <option value="1216">4</option>
+                            <option value="1217">5</option>
+                            <option value="1218">6</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>外資連續買超</p>
+                        <p id="t30" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c30" />
+                        <select id="b59" class="w-25">
+                            <option value="460">1</option>
+                            <option value="461">2</option>
+                            <option value="462">3</option>
+                            <option value="463">4</option>
+                            <option value="464">5</option>
+                            <option value="465">6</option>
+                        </select>
+                        <select id="b60" class="w-25">
+                            <option value="460">1</option>
+                            <option value="461">2</option>
+                            <option value="462">3</option>
+                            <option value="463">4</option>
+                            <option value="464">5</option>
+                            <option value="465">6</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p>投信連續買超</p>
+                        <p id="t31" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c31" />
+                        <select id="b61" class="w-25">
+                            <option value="478">1</option>
+                            <option value="479">2</option>
+                            <option value="480">3</option>
+                            <option value="481">4</option>
+                            <option value="482">5</option>
+                            <option value="483">6</option>
+                        </select>
+                        <select id="b62" class="w-25">
+                            <option value="478">1</option>
+                            <option value="479">2</option>
+                            <option value="480">3</option>
+                            <option value="481">4</option>
+                            <option value="482">5</option>
+                            <option value="483">6</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>主力連續買超</p>
+                        <p id="t32" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c32" />
+                        <select id="b63" class="w-25">
+                            <option value="496">1</option>
+                            <option value="497">2</option>
+                            <option value="498">3</option>
+                            <option value="499">4</option>
+                            <option value="500">5</option>
+                            <option value="501">6</option>
+                        </select>
+                        <select id="b64" class="w-25">
+                            <option value="496">1</option>
+                            <option value="497">2</option>
+                            <option value="498">3</option>
+                            <option value="499">4</option>
+                            <option value="500">5</option>
+                            <option value="501">6</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>自營商連續買超</p>
+                        <p id="t33" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c33" />
+                        <select id="b65" class="w-25">
+                            <option value="101141">1</option>
+                            <option value="101142">2</option>
+                            <option value="101143">3</option>
+                            <option value="101144">4</option>
+                            <option value="101145">5</option>
+                            <option value="101146">6</option>
+                        </select>
+                        <select id="b66" class="w-25">
+                            <option value="101141">1</option>
+                            <option value="101142">2</option>
+                            <option value="101143">3</option>
+                            <option value="101144">4</option>
+                            <option value="101145">5</option>
+                            <option value="101146">6</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mt-4">
+                        <p>券資比排名</p>
+                        <p id="t34" class="text-muted"><small>請選擇範圍</small></p>
+                        <input type="checkbox" id="c34" />
+                        <select id="b67" class="w-25">
+                            <option value="526">10</option>
+                            <option value="527">20</option>
+                            <option value="528">30</option>
+                            <option value="529">50</option>
+                            <option value="530">100</option>
+                            <option value="531">150</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mt-4 mr-5 mb-5">
+    <button type="button" class="btn btn-danger pl-4 pr-4 mt-3 mb-2 mr-1" id="clear">清  除</button>
+    <button type="button" class="btn btn-danger pl-4 pr-4 mt-3 mb-2" id="ack">送  出</button>
+</div>
+<div id="point"></div>
+<div id="result"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var st = "";
+        $("#clear").click(function () {
+            $('input[type=checkbox]').prop('checked', false);
+        })
+        $("#ack").click(function () {
+            st = "";
+            var ss = "";
+            if ($("input[type='checkbox']:checked").length <= 8) {
+
+                if ($("#c1").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 552 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b1").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b2").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b2 option").attr("selected", false);
+                        $("#b2 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b1").find("option:selected").text();
+                    var ot2 = $("#b2").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "元以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "元以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "元~" + ot2 + "元";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "元以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t1").text(tt);
+
+                }
+                if ($("#c2").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 562 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b3").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b4").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b4 option").attr("selected", false);
+                        $("#b4 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b3").find("option:selected").text();
+                    var ot2 = $("#b4").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "倍以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "倍以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "倍~" + ot2 + "倍";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "倍以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t2").text(tt);
+                }
+                if ($("#c3").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 1219 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b5").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b6").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b6 option").attr("selected", false);
+                        $("#b6 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b5").find("option:selected").text();
+                    var ot2 = $("#b6").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "倍以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "倍以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "倍~" + ot2 + "倍";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "倍以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t3").text(tt);
+                }
+                if ($("#c4").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 101101 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b7").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b8").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b8 option").attr("selected", false);
+                        $("#b8 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b7").find("option:selected").text();
+                    var ot2 = $("#b8").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "元以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "元以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "元~" + ot2 + "元";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "元以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t4").text(tt);
+                }
+                if ($("#c5").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 100532 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b9").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b10").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b10 option").attr("selected", false);
+                        $("#b10 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b9").find("option:selected").text();
+                    var ot2 = $("#b10").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "億以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "億以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "億~" + ot2 + "億";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "億以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t5").text(tt);
+                }
+                if ($("#c6").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 101111 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b11").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b12").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b12 option").attr("selected", false);
+                        $("#b12 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b11").find("option:selected").text();
+                    var ot2 = $("#b12").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "億以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "億以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "億~" + ot2 + "億";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "億以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t6").text(tt);
+                }
+                if ($("#c7").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 582 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b13").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b14").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b14 option").attr("selected", false);
+                        $("#b14 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b13").find("option:selected").text();
+                    var ot2 = $("#b14").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "%以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "%以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "%~" + ot2 + "%";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "%以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t7").text(tt);
+                }
+                if ($("#c8").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 592 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b15").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b16").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b16 option").attr("selected", false);
+                        $("#b16 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b15").find("option:selected").text();
+                    var ot2 = $("#b16").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "%以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "%以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "%~" + ot2 + "%";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "%以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t8").text(tt);
+                }
+                if ($("#c9").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 101121 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b17").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b18").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b18 option").attr("selected", false);
+                        $("#b18 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b17").find("option:selected").text();
+                    var ot2 = $("#b18").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "%以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "%以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "%~" + ot2 + "%";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "%以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t9").text(tt);
+                }
+                if ($("#c10").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 1229 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b19").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b20").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b20 option").attr("selected", false);
+                        $("#b20 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b19").find("option:selected").text();
+                    var ot2 = $("#b20").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "%以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "%以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "%~" + ot2 + "%";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "%以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t10").text(tt);
+                }
+                if ($("#c11").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 101131 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b21").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b22").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b22 option").attr("selected", false);
+                        $("#b22 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b21").find("option:selected").text();
+                    var ot2 = $("#b22").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "%以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "%以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "%~" + ot2 + "%";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "%以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t11").text(tt);
+                }
+                if ($("#c12").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 9; i++) {
+                        array[i] = 572 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b23").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b24").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b24 option").attr("selected", false);
+                        $("#b24 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b23").find("option:selected").text();
+                    var ot2 = $("#b24").find("option:selected").text();
+                    var tt = "";
+
+                    if (s1 == 0 && s2 == 0) {
+                        tt = ot1 + "元以下";
+                    }
+                    else if (s1 == 0 && s2 > 0 && s2 != 8) {
+                        tt = ot2 + "元以下";
+                    }
+                    else if (s1 > 0 && s2 > 0 && s2 != 8) {
+                        tt = ot1 + "元~" + ot2 + "元";
+                    }
+                    else if (s1 > 0 && s2 == 8) {
+                        tt = ot1 + "元以上";
+                    }
+                    else {
+                        tt = "全選"
+                    }
+                    $("#t12").text(tt);
+                }
+                if ($("#c13").is(":checked") == true) {
+                    st += 100030 + ",";
+                }
+                if ($("#c14").is(":checked") == true) {
+                    st += 100036 + ",";
+                }
+                if ($("#c15").is(":checked") == true) {
+                    st += 100035 + ",";
+                }
+                if ($("#c16").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 5; i++) {
+                        array[i] = 100042 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b31").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b32").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b32 option").attr("selected", false);
+                        $("#b32 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b31").find("option:selected").text();
+                    var ot2 = $("#b32").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t16").text(tt);
+                }
+                if ($("#c17").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 5; i++) {
+                        array[i] = 100047 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b33").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b34").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b34 option").attr("selected", false);
+                        $("#b34 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b33").find("option:selected").text();
+                    var ot2 = $("#b34").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t17").text(tt);
+                }
+                if ($("#c18").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 5; i++) {
+                        array[i] = 100052 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b35").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b36").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b36 option").attr("selected", false);
+                        $("#b36 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b35").find("option:selected").text();
+                    var ot2 = $("#b36").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t18").text(tt);
+                }
+                if ($("#c19").is(":checked") == true) {
+                    st += 100205 + ",";
+                }
+                if ($("#c20").is(":checked") == true) {
+                    st += 100209 + ",";
+                }
+                if ($("#c21").is(":checked") == true) {
+                    st += 100207 + ",";
+                }
+                if ($("#c22").is(":checked") == true) {
+                    st += 100211 + ",";
+                }
+                if ($("#c23").is(":checked") == true) {
+                    st += 101151 + ",";
+                }
+                if ($("#c24").is(":checked") == true) {
+                    st += 101152 + ",";
+                }
+                if ($("#c25").is(":checked") == true) {
+                    st += 101153 + ",";
+                }
+                if ($("#c26").is(":checked") == true) {
+                    st += 101154 + ",";
+                }
+                if ($("#c27").is(":checked") == true) {
+                    st += 100213 + ",";
+                }
+                if ($("#c28").is(":checked") == true) {
+                    st += 100214 + ",";
+                }
+                if ($("#c29").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 1213 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b57").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b58").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b58 option").attr("selected", false);
+                        $("#b58 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b57").find("option:selected").text();
+                    var ot2 = $("#b58").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t29").text(tt);
+                }
+                if ($("#c30").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 460 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b59").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b60").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b60 option").attr("selected", false);
+                        $("#b60 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b59").find("option:selected").text();
+                    var ot2 = $("#b60").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t30").text(tt);
+                }
+                if ($("#c31").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 478 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b61").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b62").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b62 option").attr("selected", false);
+                        $("#b62 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b61").find("option:selected").text();
+                    var ot2 = $("#b62").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t31").text(tt);
+                }
+                if ($("#c32").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 496 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b63").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b64").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b64 option").attr("selected", false);
+                        $("#b64 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b63").find("option:selected").text();
+                    var ot2 = $("#b63").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t32").text(tt);
+                }
+                if ($("#c33").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 101141 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b65").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b66").val().indexOf(array[i]) != -1) {
+                            s2 = i;
+                        }
+                    }
+                    if (s2 < s1) {
+                        s2 = s1;
+                        $("#b66 option").attr("selected", false);
+                        $("#b66 option[value=" + array[s1] + "]").attr("selected", true);
+                    }
+                    for (var i = s1; i <= s2; i++) {
+                        st += array[i] + ",";
+                    }
+
+                    var ot1 = $("#b65").find("option:selected").text();
+                    var ot2 = $("#b66").find("option:selected").text();
+                    var tt = ot1 + "日~" + ot2 + "日";
+                    $("#t33").text(tt);
+                }
+                if ($("#c34").is(":checked") == true) {
+                    var s1, s2 = 0;
+                    var array = new Array();
+                    for (var i = 0; i < 6; i++) {
+                        array[i] = 526 + i;
+                    }
+                    for (var i = 0; i < array.length; i++) {
+                        if ($("#b67").val().indexOf(array[i]) != -1) {
+                            s1 = i;
+                        }
+                    }
+                    st += array[s1] + ",";
+
+
+                    var ot1 = $("#b67").find("option:selected").text();
+                    var tt = "前" + ot1 + "名";
+                    $("#t34").text(tt);
+                }
+                st = st.substring(0, st.length - 1);
+            }
+            else {
+                ss = "條件選擇最多8個";
+                $('#result').html("");
+            }
+            $('#point').text(ss);
+            if (ss != "條件選擇最多8個") {
+                $.ajax({
+                    type: 'get',
+                    url: 'Ch',
+                    dataType: 'json',
+                    data: { p: st },
+                    success: function (da) {
+                        var i = 0;
+                        var sthead = "<table class='table'><tr><td>股名</td><td>收盤價</td><td>漲幅</td><td>漲跌幅(%)</td>";
+                        var stbody = "";
+                        for (i = 0; i < da.length; i++) {
+                            stbody += "<tr><td><a href='ShowStock?stid=" + da[i].symid + "'>" + da[i].symid + da[i].symname + "</a></td><td>" + da[i].close_price + "</td><td>" + da[i].updn + "</td><td>" + da[i].updn_rate;
+                            if (da[i].A2 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>EPS(元)</td>";
+                                }
+                                if (da[i].A2 == "") {
+                                    da[i].A2 = "--";
+                                }
+                                stbody += "<td>" + da[i].A2 + "</td>";
+                            }
+                            if (da[i].A3 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>本益比(倍)</td>";
+                                }
+                                if (da[i].A3 == "") {
+                                    da[i].A3 = "--";
+                                }
+                                stbody += "<td>" + da[i].A3 + "</td>";
+                            }
+                            if (da[i].A4 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>P/B(倍)</td>";
+                                }
+                                if (da[i].A4 == "") {
+                                    da[i].A4 = "--";
+                                }
+                                stbody += "<td>" + da[i].A4 + "</td>";
+                            }
+                            if (da[i].A7 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>最近現金股利(元/年度)</td>";
+                                }
+                                if (da[i].A7 == "") {
+                                    da[i].A7 = "--";
+                                }
+                                stbody += "<td>" + da[i].A7 + "</td>";
+                            }
+                            if (da[i].A8 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>股本(億)</td>";
+                                }
+                                if (da[i].A8 == "") {
+                                    da[i].A8 = "--";
+                                }
+                                stbody += "<td>" + da[i].A8 + "</td>";
+                            }
+                            if (da[i].A9 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>現金流量(億)</td>";
+                                }
+                                if (da[i].A9 == "") {
+                                    da[i].A9 = "--";
+                                }
+                                stbody += "<td>" + da[i].A9 + "</td>";
+                            }
+                            if (da[i].A1 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>毛利率(%)</td>";
+                                }
+                                if (da[i].A1 == "") {
+                                    da[i].A1 = "--";
+                                }
+                                stbody += "<td>" + da[i].A1 + "</td>";
+                            }
+                            if (da[i].A5 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>ROE(%)</td>";
+                                }
+                                if (da[i].A5 == "") {
+                                    da[i].A5 = "--";
+                                }
+                                stbody += "<td>" + da[i].A5 + "</td>";
+                            }
+                            if (da[i].A10 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>資產報酬率(ROA)(%)</td>";
+                                }
+                                if (da[i].A10 == "") {
+                                    da[i].A10 = "--";
+                                }
+                                stbody += "<td>" + da[i].A10 + "</td>";
+                            }
+                            if (da[i].A6 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>營益率(%)</td>";
+                                }
+                                if (da[i].A6 == "") {
+                                    da[i].A6 = "--";
+                                }
+                                stbody += "<td>" + da[i].A6 + "</td>";
+                            }
+                            if (da[i].A11 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>負債比率(%)</td>";
+                                }
+                                if (da[i].A11 == "") {
+                                    da[i].A11 = "--";
+                                }
+                                stbody += "<td>" + da[i].A11 + "</td>";
+                            }
+                            if (da[i].A12 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>淨值(元)</td>";
+                                }
+                                if (da[i].A12 == "") {
+                                    da[i].A12 = "--";
+                                }
+                                stbody += "<td>" + da[i].A12 + "</td>";
+                            }
+                            if (da[i].D1 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>5MA</td>";
+                                }
+                                if (da[i].D1 == "") {
+                                    da[i].D1 = "--";
+                                }
+                                stbody += "<td>" + da[i].D1 + "</td>";
+                            }
+                            if (da[i].D2 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>5MA</td>";
+                                }
+                                if (da[i].D2 == "") {
+                                    da[i].D2 = "--";
+                                }
+                                stbody += "<td>" + da[i].D2 + "</td>";
+                            }
+                            if (da[i].D3 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>240MA</td>";
+                                }
+                                if (da[i].D3 == "") {
+                                    da[i].D3 = "--";
+                                }
+                                stbody += "<td>" + da[i].D3 + "</td>";
+                            }
+                            if (da[i].B1 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>5MA</td>";
+                                }
+                                if (da[i].B1 == "") {
+                                    da[i].B1 = "--";
+                                }
+                                stbody += "<td>" + da[i].B1 + "</td>";
+                            }
+                            if (da[i].B3 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>20MA</td>";
+                                }
+                                if (da[i].B3 == "") {
+                                    da[i].B3 = "--";
+                                }
+                                stbody += "<td>" + da[i].B3 + "</td>";
+                            }
+                            if (da[i].B2 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>20MA</td>";
+                                }
+                                if (da[i].B2 == "") {
+                                    da[i].B2 = "--";
+                                }
+                                stbody += "<td>" + da[i].B2 + "</td>";
+                            }
+                            if (da[i].B4 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>20MA</td>";
+                                }
+                                if (da[i].B4 == "") {
+                                    da[i].B4 = "--";
+                                }
+                                stbody += "<td>" + da[i].B4 + "</td>";
+                            }
+                            if (da[i].B7 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>MTM10</td>";
+                                }
+                                if (da[i].B7 == "") {
+                                    da[i].B7 = "--";
+                                }
+                                stbody += "<td>" + da[i].B7 + "</td>";
+                            }
+                            if (da[i].B8 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>MTM10</td>";
+                                }
+                                if (da[i].B8 == "") {
+                                    da[i].B8 = "--";
+                                }
+                                stbody += "<td>" + da[i].B8 + "</td>";
+                            }
+                            if (da[i].B9 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>RSI6</td>";
+                                }
+                                if (da[i].B9 == "") {
+                                    da[i].B9 = "--";
+                                }
+                                stbody += "<td>" + da[i].B9 + "</td>";
+                            }
+                            if (da[i].B10 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>RSI6</td>";
+                                }
+                                if (da[i].B10 == "") {
+                                    da[i].B10 = "--";
+                                }
+                                stbody += "<td>" + da[i].B10 + "</td>";
+                            }
+                            if (da[i].B5 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>日K值</td>";
+                                }
+                                if (da[i].B5 == "") {
+                                    da[i].B5 = "--";
+                                }
+                                stbody += "<td>" + da[i].B5 + "</td>";
+                            }
+                            if (da[i].B6 != null) {
+                                if (i == 0) {
+                                    sthead += "<td>週K值</td>";
+                                }
+                                if (da[i].B6 == "") {
+                                    da[i].B6 = "--";
+                                }
+                                stbody += "<td>" + da[i].B6 + "</td>";
+                            }
+                            sthead += "</tr>";
+                        }
+                        stbody += "</tr>";
+                        var st = sthead + stbody + "</table>";
+                        if (da[0].updn == null) {
+                            $('#point').text("請重新選擇");
+                            $('#result').html("");
+                        }
+                        else {
+                            $('#result').html(st);
+                        }
+
+                    },
+                    error: function () {
+                        $('#point').text('資料有誤');
+                    }
+                });
+            }
+
+        });
+    });
+</script>

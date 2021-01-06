@@ -1,0 +1,202 @@
+﻿@model Member.ViewModels.MesRpt
+
+@{
+    ViewBag.Title = "Violmes";
+}
+
+<h2 class="text-muted text-center mt-5 mb-3">違規留言列表</h2>
+<div>
+    <table class="table">
+        <tr class="row">
+            <th class="col-md-1 col-6">
+               違規者
+            </th>
+            <th class="col-md-6 col-6">
+                留言內容
+            </th>
+            <th class="col-md-2 col-6">
+                留言時間
+            </th>
+            <th class="col-1"></th>
+            <th class="col-2"></th>
+        </tr>
+        @foreach (var item in Model.Mes)
+        {
+
+    <tr class=" row">
+        <td class="pt-4 col-md-1 col-6">
+            <a href="/Back/Violmes?Contcurrent=1&msid=@item.MsId">@Html.DisplayFor(modelItem => item.Memb.UsName)</a>
+        </td>
+        <td class="pt-4 col-md-6 col-6">
+            @Html.Raw(@Html.DisplayFor(modelItem => item.MsCont).ToString().Replace("\n", "<br>"))
+        </td>
+        <td class="pt-4 col-md-2 col-6">
+            <samll>@Html.DisplayFor(modelItem => item.MsDate)</samll>
+        </td>
+        <td class=" col-md-1 col-6">
+            @if (item.Memb.UsLkc == 2)
+            {
+                <p class="text-danger text-center border rounded"><small>已停權2次<br />再次違規將永久停權</small></p>
+            }
+        </td>
+
+        <td class="pt-3  col-md-2 col-6">
+            @if (Session["AutB"].ToString().Contains("刪除"))
+            {
+                @Html.ActionLink("違規", "VioMesNo", new { msid = item.MsId }, new { @class = "btn btn-danger mr-2", onclick = "return confirm('你確定嗎')" })
+                @Html.ActionLink("正常", "VioMesOk", new { msid = item.MsId }, new { @class = "btn btn-success", onclick = "return confirm('你確定嗎')" })
+            }
+        </td>
+    </tr>
+        }
+
+        @*@foreach (var item in Model.Mes)
+        {
+
+            <tr>
+                <td>
+                    <a href="/Back/Violmes?Contcurrent=1&msid=@item.MsId">@Html.DisplayFor(modelItem => item.Memb.UsName)</a>
+                </td>
+                <td>
+                    @Html.Raw(@Html.DisplayFor(modelItem => item.MsCont).ToString().Replace("\n", "<br>"))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MsDate)
+                </td>
+                <td>
+                    @Html.ActionLink("異常", "VioMesNo", new { msid = item.MsId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("無異", "VioMesOk", new { msid = item.MsId }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @if (item.Memb.UsLkc == 3)
+                    {
+                        @Html.ActionLink("封鎖", "Lock", new { usid = item.Memb.UsId, msid = item.MsId }, new { @class = "btn btn-danger" })
+                    }
+                </td>
+            </tr>
+        }*@
+
+    </table>
+    <div id="page1"></div>
+</div>
+<h2 class="text-muted text-center mt-5 mb-3">檢舉列表</h2>
+<div>
+    <table class="table">
+        <tr class="row">
+            @*<th class="col-1">
+                檢舉人
+            </th>*@
+            <th class="col-6">
+                檢舉原由
+            </th>
+            <th class="col-3">
+                檢舉時間
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.MesR)
+        {
+
+            <tr class="row">
+                @*<td class="col-1">
+                    @Html.DisplayFor(modelItem => item.Memb.UsName)
+                </td>*@
+                <td class="col-6">
+                    @Html.Raw(@Html.DisplayFor(modelItem => item.MsRCont).ToString().Replace("\n", "<br>"))
+                </td>
+                <td class="col-3">
+                    @Html.DisplayFor(modelItem => item.MsRDate)
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div id="page2"></div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        @if (ViewBag.error== "您無此權限") {
+            <text>
+                $(".body-content").html("您無此權限");
+            </text>
+
+         }
+
+        @{
+            var i1 = ViewBag.total1;
+            var j1 = ViewBag.pageSize1;
+            var k1 = ViewBag.current1;
+            var i2 = ViewBag.total2;
+            var j2 = ViewBag.pageSize2;
+            var k2 = ViewBag.current2;
+            var id = ViewBag.msid;
+        }
+        var Pagination1 = "<nav aria-label='Page navigation example'><ul class='pagination'>";
+        //總頁數
+        var PageTotal1 = 0;
+        if (@(i1 % j1) == 0) {
+            PageTotal1 = (@(i1 / j1));
+        }
+        else {
+            PageTotal1 = (@(i1 / j1)) + 1;
+        }
+
+        @*//超過總頁數
+        if (@k1 > PageTotal) {
+            @k1 = PageTotal;
+        }
+        if (@k1 < 0) {
+            @k1 = 1;
+        }*@
+        if (PageTotal1 == 1) {
+            Pagination1 += "<li class='page-item'><a class='page-link' href='/Back/Violmes?msid="+@id+"&Contcurrent="+@k2+"&Maincurrent=1'>1</a></li>";
+        }
+        if (PageTotal1 > 1) {
+            for (var i = 1; i < PageTotal1 + 1; i++) {
+                Pagination1 += "<li class='page-item'><a class='page-link' href='/Back/Violmes?msid="+@id+"&Contcurrent="+@k2+"&Maincurrent=" + i+"'>" + i + "</a></li>";
+            }
+        }
+        Pagination1 += "</ul></nav>";
+
+        $("#page1").html(Pagination1);
+
+
+
+        var Pagination2 = "<nav aria-label='Page navigation example'><ul class='pagination'>";
+        //總頁數
+        var PageTotal2 = 0;
+        if (@(i2 % j2) == 0) {
+            PageTotal2 = (@(i2 / j2));
+        }
+        else {
+            PageTotal2 = (@(i2 / j2)) + 1;
+        }
+
+        @*//超過總頁數
+        if (@k2 > PageTotal) {
+            @k2 = PageTotal;
+        }
+        if (@k2 < 0) {
+            @k2 = 1;
+        }*@
+        if (PageTotal2 == 1) {
+            Pagination2 += "<li class='page-item'><a class='page-link' href='/Back/Violmes?msid="+@id+"&Maincurrent=" +@k1+"&Contcurrent=1'>1</a></li>";
+        }
+        if (PageTotal2 > 1) {
+            for (var i = 1; i < PageTotal2 + 1; i++) {
+                Pagination2 += "<li class='page-item'><a class='page-link' href='/Back/Violmes?msid="+@id+"&Maincurrent=" +@k1+"&Contcurrent=" + i+"'>" + i + "</a></li>";
+            }
+        }
+        Pagination2 += "</ul></nav>";
+
+        $("#page2").html(Pagination2);
+
+
+
+
+    })
+</script>

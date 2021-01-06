@@ -1,0 +1,425 @@
+﻿@model Member.Models.Memb
+@{
+    ViewBag.Title = "NewQuestion";
+
+}
+<style>
+    .error {
+        margin-left: -1.25rem;
+    }
+</style>
+<h2 class="pt-3 mb-4  text-muted ">看看你的投資性格屬於哪一類吧</h2>
+<div class="container ">
+
+        <form method="post" id="nq">
+
+            <fieldset class="form-group mt-4">
+                <span class="col-form-label col-sm-2 pt-0 "> <strong>1.你最喜歡的運動項目是：</strong></span>
+                <label id="gridRadios0-error" class="error" for="gridRadios0"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input a1" type="radio" name="gridRadios0" id="inRadio_surf" value="3">
+                            <label class="form-check-label" for="inRadio_surf">
+                                A.衝浪，能充分享受刺激以及挑戰極限的快感。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input a1" type="radio" name="gridRadios0" id="inRadio_mountain" value="2">
+                            <label class="form-check-label" for="inRadio_mountain">
+                                B.爬山，體力能負荷，是一項穩當的運動。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input a1" type="radio" name="gridRadios0" id="inRadio_walk" value="1">
+                            <label class="form-check-label" for="inRadio_walk">
+                                C.散步，安全、舒適、無壓力，不易有運動傷害。
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>2.你平常買東西的模式是：</strong></span>
+                <label id="gridRadios1-error" class="error" for="gridRadios1"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios1" id="inRadio_like" value="3">
+                            <label class="form-check-label" for="inRadio_like">
+                                A.看到喜歡的物品就買下。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios1" id="inRadio_need" value="2">
+                            <label class="form-check-label" for="inRadio_need">
+                                B.看到喜歡的物品會先想想是否有需要，再決定要不要買。
+                            </label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" type="radio" name="gridRadios1" id="inRadio_no" value="1">
+                            <label class="form-check-label" for="inRadio_no">
+                                C.還要花時間挑、太麻煩了，所以不太買東西。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>3.公司部門計畫舉辦聚餐，要你負責選餐廳，你會怎麼決定？</strong></span>
+                <label id="gridRadios2-error" class="error" for="gridRadios2"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios2" id="inRadio_hight" value="3">
+                            <label class="form-check-label" for="inRadio_hight">
+                                A.上網搜尋，然後看網路人氣如何，選擇人氣高的餐廳。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios2" id="inRadio_observed" value="2">
+                            <label class="form-check-label" for="inRadio_observed">
+                                B.從網路選幾家適合的餐廳，實地觀察店內環境、氣氛、用餐人氣後才決定。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios2" id="inRadio_nolike" value="1">
+                            <label class="form-check-label" for="inRadio_nolike">
+                                C.還要花時間挑、太麻煩了，所以不太買東西。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>4.你的月薪僅有2萬5000元，超想擁有iPad，但店家告訴你得花上2萬5000元，你會怎麼做？</strong></span>
+                <label id="gridRadios3-error" class="error" for="gridRadios3"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios3" id="inRadio_card" value="3">
+                            <label class="form-check-label" for="inRadio_card">
+                                A.沒關係，刷信用卡去買，每個月慢慢分期付款就好。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios3" id="inRadio_noneed" value="2">
+                            <label class="form-check-label" for="inRadio_noneed">
+                                B.先想想是否需要以及手邊資金再來決定。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios3" id="inRadio_nomoney" value="1">
+                            <label class="form-check-label" for="inRadio_nomoney">
+                                C.算了、不買，因為跟一個月的薪水差不多。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>5.某百貨公司正在進行大拍賣，你會不會搶著去買？</strong></span>
+                <label id="gridRadios4-error" class="error" for="gridRadios4"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios4" id="inRadio_buy" value="3">
+                            <label class="form-check-label" for="inRadio_buy">
+                                A.一定會去買，這麼便宜，不多買一點可惜。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios4" id="inRadio_sut" value="2">
+                            <label class="form-check-label" for="inRadio_sut">
+                                B.先看看是否有合適的物品，有的話趁機買進。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios4" id="inRadio_nobuy" value="1">
+                            <label class="form-check-label" for="inRadio_nobuy">
+                                C.根本不會，不喜歡人擠人、又怕買到有問題的商品。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>6.如果你現在持有的股票，突然連續2天下跌，你的反應是？</strong></span>
+                <label id="gridRadios5-error" class="error" for="gridRadios5"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios5" id="inRadio_sell" value="3">
+                            <label class="form-check-label" for="inRadio_sell">
+                                A.不管三七二十一，馬上賣掉全部部位。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios5" id="inRadio_piny" value="2">
+                            <label class="form-check-label" for="inRadio_piny">
+                                B.先了解下跌原因，若無損長期趨勢，續抱並趁低檔加碼。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios5" id="inRadio_selloff" value="1">
+                            <label class="form-check-label" for="inRadio_selloff">
+                                C.先了解下跌原因，既使無損長期趨勢，還是先賣掉一部分讓部分獲利落袋為安。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>7.你決定買一檔基金，可是買進後基金淨值卻不太動，你會怎麼處理？</strong></span>
+                <label id="gridRadios6-error" class="error" for="gridRadios6"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios6" id="inRadio_rise" value="3">
+                            <label class="form-check-label" for="inRadio_rise">
+                                A.先賣掉再說，買了一陣子都沒漲，不如賣掉去買現在正在上漲的基金。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios6" id="inRadio_setfree" value="2">
+                            <label class="form-check-label" for="inRadio_setfree">
+                                B.是市場大環境因素造成目前盤整，沒關係，繼續放著。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios6" id="inRadio_decide" value="1">
+                            <label class="form-check-label" for="inRadio_decide">
+                                C.問問朋友、理專的意見，再來決定。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>8.你是怎麼決定投資一個市場或一檔股票的？</strong></span>
+                <label id="gridRadios7-error" class="error" for="gridRadios7"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios7" id="inRadio_goup" value="3">
+                            <label class="form-check-label" for="inRadio_goup">
+                                A.看績效決定，在上漲的就買。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios7" id="inRadio_tdhw" value="2">
+                            <label class="form-check-label" for="inRadio_tdhw">
+                                B.自己先做功課，了解這個市場趨勢或這檔股票基本面後，再進場。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios7" id="inRadio_listen" value="1">
+                            <label class="form-check-label" for="inRadio_listen">
+                                C.聽好友、理專的建議，因為上班太忙了，而且也搞不懂這些投資商品
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>9.當你買進1檔基金或股票後，會不會經常看基金淨值或股價表現？</strong></span>
+                <label id="gridRadios8-error" class="error" for="gridRadios8"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios8" id="inRadio_ofcourse" value="3">
+                            <label class="form-check-label" for="inRadio_ofcourse">
+                                A.當然會，只要下跌或漲不動，馬上賣出轉換標的。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios8" id="inRadio_view" value="2">
+                            <label class="form-check-label" for="inRadio_view">
+                                B.不會，買進之前做過功課，定期檢視就好。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios8" id="inRadio_sold" value="1">
+                            <label class="form-check-label" for="inRadio_sold">
+                                C.會經常看，而且若波動太大就會受不了而賣出。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <span class="col-form-label col-sm-2 pt-0"><strong>10.你覺得什麼樣的行為才叫做投資？</strong></span>
+                <label id="gridRadios9-error" class="error" for="gridRadios9"></label>
+                <div class="row">
+                    <div class="col-sm-10 ml-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios9" id="inRadio_look" value="3">
+                            <label class="form-check-label" for="inRadio_look">
+                                A.經常盯著市場、跟著市場表現進出，這才有投資的感覺。
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios9" id="inRadio_found" value="2">
+                            <label class="form-check-label" for="inRadio_found">
+                                B.找到長期趨勢，買進後等待收成，不必躁進。
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios9" id="inRadio_earn" value="1">
+                            <label class="form-check-label" for="inRadio_earn">
+                                C. 這個問題不重要，能賺錢就好了。
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <br>
+                    <button type="submit" class="btn btn-secondary" @*data-toggle="modal" data-target="#myModal"*@>送出</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+
+
+    <script>
+    $(document).ready(function () {
+        $("input[type='radio']").addClass("a1");
+@if (Session["result"] == null) {
+            <text>
+                $(".a1").attr('disabled', 'disabled').addClass('btn disabled');
+            </text>
+         }
+    })
+
+    $('#nq').validate({
+        rules: {
+            gridRadios0 :{
+                required: true,
+    },
+        gridRadios1 :{
+        required: true,
+    },
+        gridRadios2 :{
+        required: true,
+    },
+        gridRadios3 :{
+        required: true,
+    },
+        gridRadios4 :{
+        required: true,
+    },
+        gridRadios5 :{
+        required: true,
+    },
+        gridRadios6 :{
+        required: true,
+    },
+        gridRadios7 :{
+        required: true,
+    },
+        gridRadios8 :{
+        required: true,
+    },
+        gridRadios9 :{
+        required: true,
+    }
+        },
+        messages: {
+            gridRadios0: {
+                required: '必填',
+            },
+            gridRadios1: {
+                required: '必填',
+            },
+            gridRadios2: {
+                required: '必填',
+            },
+            gridRadios3: {
+                required: '必填',
+            },
+            gridRadios4: {
+                required: '必填',
+            },
+            gridRadios5: {
+                required: '必填',
+            },
+            gridRadios6: {
+                required: '必填',
+            },
+            gridRadios7: {
+                required: '必填',
+            },
+            gridRadios8: {
+                required: '必填',
+            },
+            gridRadios9: {
+                required: '必填',
+            }
+
+        },
+        submitHandler: function (form) {
+            form.submit();
+
+        }
+    });
+    </script>
+
+    <!--<div class="form-group row">
+        <div class="col-sm-10">-->
+    @*@if (Model.ITId > 0) {*@
+    @*<div class="container">
+            <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-content bg-light">
+                    <div class="modal-header">
+                        <h4 class="modal-title">解析</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    @*<script>
+            var int itid = @Model.ITId;
+            switch (itid) {
+                case 1:
+                    document.write("拿到4個A：");
+                    break;
+                case 2:
+                    document.write("拿到4個B：");
+                    break;
+                case 3:
+                    document.write("拿到4個C：");
+                    break;
+                default:
+                    document.write("請好好填問卷!!");
+                    break;
+            }
+
+        </script>*@
+
+    <!--}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    @*<script>
+        import { type } from "jquery"
+
+            $.ajax({
+                url:
+                type:
+                data: {usid : ,}
+            })
+
+
+
+        </script>*@

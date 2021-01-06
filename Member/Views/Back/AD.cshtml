@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "AD";
+}
+
+<h2 class="text-muted text-center mt-5">廣告</h2>
+
+    @{
+        List<string>
+    adPath = new List<string>
+        ();
+        DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img_AD"));
+        FileInfo[] fInfo = dir.GetFiles();
+        foreach (FileInfo result in fInfo)
+        {
+        adPath.Add(result.Name);
+        }
+        <table class="table">
+            @foreach (var item in adPath)
+            {
+            <tr>
+                <td><img src="../../img_AD/@item" class="img-fluid" width="200" /></td>
+                <td> @Html.ActionLink("修改", "ADEdit","Back", new { }, new { @class = "btn btn-warning mb-1" })</td>
+            </tr>
+            }
+
+        </table>
+        }
+

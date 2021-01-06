@@ -1,0 +1,600 @@
+﻿@model Member.ViewModels.VM
+
+@{
+    ViewBag.Title = "-歡迎光臨-理財EZgo";
+}
+
+<style>
+    .upstop {
+        background-color: #ffd6d6;
+    }
+
+    .downstop {
+        background-color: #caf9d1;
+    }
+</style>
+<div>
+    @Html.Raw(@ViewBag.st)
+</div>
+
+@*個股資訊區*@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="Ctab1" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">個股資訊</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab2" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">即時訊息</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab3" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false">盤後訊息</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab4" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false">基本資料</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab5" data-toggle="tab" href="#tab5" role="tab" aria-controls="contact" aria-selected="false">股利政策</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab6" data-toggle="tab" href="#tab6" role="tab" aria-controls="contact" aria-selected="false">營收盈餘</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab7" data-toggle="tab" href="#tab7" role="tab" aria-controls="contact" aria-selected="false">申報轉讓</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="Ctab8" data-toggle="tab" href="#tab8" role="tab" aria-controls="contact" aria-selected="false">獲利能力</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="Ctab1">
+        @Html.Raw(@ViewBag.stevaluate)
+        @Html.Raw(@ViewBag.stnews)
+    </div>
+    <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="Ctab2">
+        @Html.Raw(@ViewBag.stdetil)
+    </div>
+    <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="Ctab3">
+        @Html.Raw(@ViewBag.stVoucher)
+        @Html.Raw(@ViewBag.stmain)
+    </div>
+    <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="Ctab4">
+        @Html.Raw(@ViewBag.stcomp)
+    </div>
+    <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="Ctab5">
+        @Html.Raw(@ViewBag.stvalue)
+    </div>
+    <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="Ctab6">
+        @Html.Raw(@ViewBag.stBsurplus)
+        @Html.Raw(@ViewBag.stAsurplus)
+    </div>
+    <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="Ctab7">
+        @Html.Raw(@ViewBag.stTransfer)
+    </div>
+    <div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="Ctab1">
+        @Html.Raw(@ViewBag.stRevenue)
+            @Html.Raw(@ViewBag.Pricevolume)
+    </div>
+</div>
+@*個股留言區*@
+<div class="container mt-5 mb-3">
+    <span class="PcontNum text-muted">0/100</span>
+    <div class=" media d-flex">
+        <textarea class="Pcont form-control a1 flex-sm-grow-1" id="Pc" autocomplete="off" placeholder="請輸入不超過100個字" maxlength="100"></textarea>
+        <button id="S2" type="button" class="btn btn-lg btn-link a1 mr-1">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+</div>
+@*留言觀看回復區*@
+<div id="cont">
+    @foreach (var item1 in Model.Mes)
+    {
+        if (item1.MsR == 0)
+        {
+            <a id="@item1.MsId"></a>
+            <div class="container row mb-3 ">
+                <div class="col-12 mt-2">
+                    @if (item1.MsE == true)
+                    {
+
+                        <div class="col-12 d-inline-flex d-flex border media p-3 a2 bg" style="border-radius:10px">
+                            <div class="flex-grow-1">
+                                留言已刪除
+                            </div>
+                        </div>
+                        <div class="d-sm-inline-flex">
+                            <button type="button" id="sg@(item1.MsId)" class="btn btn-link mr-1 disabled">
+                                <i class="far fa-thumbs-up"></i>
+                            </button>
+                            <span class=" align-self-lg-center mr-2">@item1.MsGC</span>
+                            <button type="button" id="sb@(item1.MsId)" class="btn btn-link mr-1 disabled">
+                                <i class="far fa-thumbs-down"></i>
+                            </button>
+                            <span class=" align-self-lg-center mr-3">@item1.MsBC</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row col-12 d-flex">
+                            <spen class="h4 flex-grow-1 p-2" style="margin-right:5px;">@Html.DisplayFor(modelItem => item1.Memb.UsEmail)</spen>
+                            <div class="float-right">
+                                <button type="button" id="report@(item1.MsId)" data-toggle="modal" data-target="#myModal1" style="color: Mediumslateblue;" class="btn border-0 a1 mr-auto float-right ">
+                                    <i class="fas fa-flag"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12 d-inline-flex d-flex border media p-3 a2" style="border-radius:10px">
+                            <div class="flex-grow-1">
+                                @Html.Raw(@Html.DisplayFor(modelItem => item1.MsCont).ToString().Replace("\n", "<br>"))
+                            </div>
+                            <div class="text-right media-body align-self-end">
+                                <span><small>@Html.DisplayFor(modelItem => item1.MsDate)</small></span>
+                            </div>
+                        </div>
+                        <div class="d-sm-inline-flex">
+                            <button type="button" id="sg@(item1.MsId)" class="btn btn-link a1 mr-1">
+                                <i class="far fa-thumbs-up"></i>
+                            </button>
+                            <span class=" align-self-lg-center mr-2">@item1.MsGC</span>
+                            <button type="button" id="sb@(item1.MsId)" class="btn btn-link a1 mr-1">
+                                <i class="far fa-thumbs-down"></i>
+                            </button>
+                            <span class=" align-self-lg-center mr-3">@item1.MsBC</span>
+                        </div>
+
+                    }
+                    @*展開留言*@
+                    <button id="btn" type="button" class="btn btn-outline-info rrrBtn" data-toggle="collapse" data-target="#collapseMES@(item1.MsId)" aria-expanded="false" >
+                        <span>更多回覆</span>
+                    </button>
+                </div>
+                <div class="col-12 collapse" id="collapseMES@(item1.MsId)">
+                    <div id="msr@(item1.MsId)">
+                        @*回覆的留言*@
+                        @foreach (var item2 in Model.Mes)
+                        {
+                            if (item1.MsP == item2.MsP && item2.MsR > 0)
+                            {
+                        <div class="col-12 ">
+                            @if (item2.MsE == true)
+                            {
+
+                                <div class="col-12 d-inline-flex d-flex border media p-3 a2 bg" style="border-radius:10px">
+                                    <div class="flex-grow-1">
+                                        留言已刪除
+                                    </div>
+                                </div>
+                                <div class="d-sm-inline-flex">
+                                    <button type="button" id="sg@(item2.MsId)" class="btn btn-link mr-1 disabled">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                    <span class=" align-self-lg-center mr-2">@item2.MsGC</span>
+                                    <button type="button" id="sb@(item2.MsId)" class="btn btn-link mr-1 disabled">
+                                        <i class="far fa-thumbs-down"></i>
+                                    </button>
+                                    <span class=" align-self-lg-center mr-3">@item2.MsBC</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row col-12 d-flex">
+                                    <div class="flex-grow-1">
+                                        <spen class="h4" style="margin-right:5px;">@Html.DisplayFor(modelItem => item2.Memb.UsEmail)</spen>
+                                    </div>
+                                    <div class="float-right">
+                                        <button type="button" id="report@(item2.MsId)" data-toggle="modal" data-target="#myModal1" style="color: Mediumslateblue;" class="btn border-0 a1 float-right ">
+                                            <i class="fas fa-flag"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-inline-flex d-flex border media p-3" style="border-radius:10px">
+                                    <div class="flex-grow-1">
+                                        @Html.Raw(@Html.DisplayFor(modelItem => item2.MsCont).ToString().Replace("\n", "<br>"))
+                                    </div>
+                                    <div class="text-right media-body align-self-end">
+                                        <span><small>@Html.DisplayFor(modelItem => item1.MsDate)</small></span>
+                                    </div>
+                                </div>
+                                <div class="d-sm-inline-flex">
+                                    <button type="button" id="sg@(item2.MsId)" class="btn btn-link mr-0 a1">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                    <span class=" align-self-lg-center mr-2">@item2.MsGC</span>
+                                    <button type="button" id="sb@(item2.MsId)" class="btn btn-link a1">
+                                        <i class="far fa-thumbs-down"></i>
+                                    </button>
+                                    <span class=" align-self-lg-center">@item2.MsBC</span>
+                                </div>
+                            }
+
+                        </div>
+                            }
+
+                        }
+                    </div>
+                    @*回覆輸入*@
+                    <div>
+                        <span class="text-muted RcontNum@(item1.MsId)">0/100</span>
+                        <div class="media d-flex">
+                            <input type="hidden"  value="@item1.MsP" />
+                            <textarea class="Rcont@(item1.MsId) form-control a1 flex-sm-grow-1" id="Rc@(item1.MsId)" autocomplete="off" placeholder="請輸入不超過100個字" maxlength="100"></textarea>
+                            <button id="S3@(item1.MsId)" type="submit" class="btn btn-lg btn-link a1 mr-1">
+                                <i class="fas fa-comment-dots"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+
+</div>
+@*檢舉區*@
+<div class="modal fade" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger">檢舉</h3>
+                <button type="button" class="close" data-dismiss="modal">X</button>
+            </div>
+            <div class="m-3 ">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           value="廣告或垃圾留言" id="ItemCheck1">
+                    <label class="form-chek-label" for="ItemCheck1">廣告或垃圾留言</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           value="中傷.歧視.挑釁或謾罵他人" id="ItemCheck2">
+                    <label class="form-chek-label" for="ItemCheck2">中傷.歧視.挑釁或謾罵他人</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           value="含色情.暴力內容" id="ItemCheck3">
+                    <label class="form-chek-label" for="ItemCheck3">含色情.暴力內容</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           value="其他" id="ItemCheck4">
+                    <label class="form-chek-label" for="ItemCheck4">其他</label>
+                </div>
+                <div class="form-group border-info">
+                    <label for="Comment1">內容說明</label>
+                    <textarea class="form-control border-info" rows="6"
+                              name="Comment1" id="Comment1"></textarea>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">檢舉成功</h3>
+                <button type="button" class="close" data-dismiss="modal">X</button>
+            </div>
+            <form class="m-3">
+                <div>
+                    感謝您的參與,我們已收到您的檢舉訊息!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">確定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    //更多回覆鈕
+    function xxxx() {
+        $('.rrrBtn').click(function (evt) {
+            //console.log(evt.target.innerText)
+            //console.log(evt.target)
+            if (evt.target.innerText == "更多回覆") {
+                evt.target.innerText="收起回覆";
+            }
+            else {
+                evt.target.innerText="更多回覆";
+            }
+        })
+    }
+    xxxx();
+    
+    $(document).ready(function () {
+        //初始顯示評價
+        @foreach (var item in Model.MesS)
+        {
+            var i = item.MsId;
+            var j = item.MsGd;
+            var k = item.MsBd;
+            <text>
+            if (@j > 0)
+            {
+                $("#sg" + @i + ">i").removeClass().addClass('fas fa-thumbs-up');
+            }
+            if (@k > 0)
+            {
+                $("#sb" + @i + ">i").removeClass().addClass('fas fa-thumbs-down');
+            }
+            </text>
+        }
+        var id;
+        $("#cont").click(function (evt) {
+            id = evt.target.parentElement.id;
+            //評價
+            if (id.indexOf("sg") == 0) {
+                    var data = { stid: @Session["stid"], msid: id.substring(2, id.length), msgd: 1, msbd: 0 };
+                    $.ajax({
+                        type: 'get',
+                        url: 'MeCreateS',
+                        dataType:'json',
+                        data: data,
+                        success: function (da) {
+                        if (da[0] > 0)
+                            $("#"+id + ">i").removeClass().addClass('fas fa-thumbs-up');
+                        else
+                            $("#" + id + ">i").removeClass().addClass('far fa-thumbs-up');
+                        if (da[1] > 0)
+                            $("#" + id + "+span+button>i").removeClass().addClass('fas fa-thumbs-down');
+                        else
+                            $("#" + id + "+span+button>i").removeClass().addClass('far fa-thumbs-down');
+                        $("#" + id + "+span").text(da[2]);
+                            $("#" + id + '+span+button+span').text(da[3]);
+                        },
+                        error: function() {
+                            alert("失敗")
+                        }
+                    })
+            }
+            if (id.indexOf("sb") == 0) {
+                    var data = { stid: @Session["stid"], msid: id.substring(2, id.length), msgd: 0, msbd: 1 };
+                    $.ajax({
+                        type: 'get',
+                        url: 'MeCreateS',
+                        dataType:'json',
+                        data: data,
+                        success: function (da) {
+
+                            if (da[0] > 0)
+                                $("#" + id).prev().prev().children(0).removeClass().addClass('fas fa-thumbs-up');
+                        else
+                                $("#" + id ).prev().prev().children(0).removeClass().addClass('far fa-thumbs-up');
+                        if (da[1] > 0)
+                            $("#" + id + ">i").removeClass().addClass('fas fa-thumbs-down');
+                        else
+                                $("#" + id + ">i").removeClass().addClass('far fa-thumbs-down');
+                            $("#" + id).prev().text(da[2]);
+                        $("#" + id +'+span'  ).text(da[3]);
+                        },
+                        error: function() {
+                            alert("失敗")
+                        }
+                })
+            }
+            //檢舉
+            if (id.indexOf("report") == 0) {
+                var box = `<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2" data-dismiss="modal" id="S4${id.substring(6, id.length)}">送出</button>`;
+                $("#myModal1 .modal-footer").empty().append(box);
+            }
+            //回復功能
+            if (id.indexOf("S3") == 0) {
+                msp = $("#" + id).prev().prev().val();
+                var data = { stid: @Session["stid"], msp : msp ,mscont: $("#Rc"+id.substring(2, id.length)).val()};
+                $.ajax({
+                    type: 'get',
+                    url: 'MeCreateR',
+                    data: data,
+                    success: function (da) {
+                        var text = `<div class="col-12 ">
+                                    <div class="row col-12 d-flex">
+                                        <div class="flex-grow-1">
+                                            <spen class="h4" style="margin-right:5px;">${da.emaile}</spen>
+                                        </div>
+                                        <div class="float-right">
+                                            <button type="button" id="report${da.msid}" data-toggle="modal" data-target="#myModal1" style="color: Mediumslateblue;" class="btn border-0 a1 float-right ">
+                                                <i class="fas fa-flag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-inline-flex d-flex border media p-3" style="border-radius:10px">
+                                        <div class="flex-grow-1">
+                                            ${da.cont.toString().replace("\n", "<br>")}
+                                        </div>
+                                        <div class="text-right media-body align-self-end">
+                                            <span><small>${da.date}</small></span>
+                                        </div>
+                                    </div>
+                                    <div class="d-sm-inline-flex">
+                                        <button type="button" id="sg${da.msid}" class="btn btn-link mr-0 a1">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </button>
+                                        <span class=" align-self-lg-center mr-2">${da.msgc}</span>
+                                        <button type="button" id="sb${da.msid}" class="btn btn-link a1">
+                                            <i class="far fa-thumbs-down"></i>
+                                        </button>
+                                        <span class=" align-self-lg-center">${da.msbc}</span>
+                                    </div>
+                            </div>`;
+                        $("#msr" + id.substring(2, id.length)).append(text);
+                        $("#Rc" + id.substring(2, id.length)).val("");
+                    },
+                    error: function () {
+                    alert("失敗")
+                    }
+                })
+            }
+        })
+        //留言功能
+        $("#S2").click(function () {
+            var data = { stid: @Session["stid"], mscont: $("#Pc").val() };
+                $.ajax({
+                type: 'get',
+                    url: 'MeCreateP',
+                    dataType: 'json',
+                    data: data,
+
+                success: function (da) {
+            var text = `<div class="container row mb-3">
+                            <div class="col-12 mt-2" >
+                                <div class="row col-12 d-flex">
+                                    <spen class="h4 flex-grow-1 p-2" style="margin-right:5px;">${da.emaile}</spen>
+                                        <div class="float-right">
+                                            <button type="button" id="report${da.msid}" data-toggle="modal" data-target="#myModal1" style="color: Mediumslateblue;"           class="btn border-0 a1 mr-auto float-right ">
+                                                <i class="fas fa-flag"></i>
+                                            </button>
+                                        </div>
+                                </div>
+                                <div class="col-12 d-inline-flex d-flex border media p-3 a2" style="border-radius:10px">
+                                    <div class="flex-grow-1">${da.cont.toString().replace("\n", "<br>")}</div>
+                                    <div class="text-right media-body align-self-end">
+                                        <span><small>${da.date}</small></span>
+                                    </div>
+                                </div>
+                                <div class="d-sm-inline-flex">
+                                    <button type="button" id="sg${da.msid}" class="btn btn-link a1 mr-1">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                    <span  class=" align-self-lg-center mr-2">${da.msgc}</span>
+                                    <button type="button" id="sb${da.msid}" class="btn btn-link a1 mr-1">
+                                        <i class="far fa-thumbs-down"></i>
+                                    </button>
+                                    <span i class=" align-self-lg-center mr-3">${da.msbc}</span>
+                                </div>
+                                <button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#collapseMES${ da.msid
+                }" aria-expanded="false">
+                                更多回覆
+                                </button>
+                            </div >
+                            <div class="col-12 collapse" id="collapseMES${da.msid}">
+                            <div id="msr${da.msid}"></div>
+                            <div>
+                            <span class="text-muted RcontNum${da.msid}">0/100</span>
+                            <div class="media d-flex">
+                            <input type="hidden" id="msp${da.msid}" value="${da.msid}">
+                                <textarea class="Rcont${da.msid} form-control a1 flex-sm-grow-1" id="Rc${da.msid}" autocomplete="off" placeholder="請輸入不超過100個字" maxlength="100"></textarea>
+                                <button id="S3${da.msid}" type="submit" class="btn btn-lg btn-link a1 mr-1">
+                                    <i class="fas fa-comment-dots"></i>
+                                </button>
+                         </div>
+                            </div>
+                        </div>`;
+                    $("#cont").append(text);
+                    $("#Pc").val("");
+                },
+                error: function () {
+                    alert("失敗");
+                }
+            })
+        });
+        //檢舉
+        $("#myModal1 .modal-footer").click(function (evt) {
+                id = evt.target.id;
+                var text="";
+                if ($("#ItemCheck1").is(":checked")) {
+                    text += $("#ItemCheck1").val()+"\n";
+                }
+                if ($("#ItemCheck2").is(":checked")) {
+                    text += $("#ItemCheck2").val() + "\n";
+                }
+                if ($("#ItemCheck3").is(":checked")) {
+                    text += $("#ItemCheck3").val() + "\n";
+                }
+                if ($("#ItemCheck4").is(":checked")) {
+                    text += $("#Comment1").val(); + "\n";
+                }
+                var data = { stid: @Session["stid"], msid: id.substring(2, id.length) , mscont: text };
+                $.ajax({
+                    type: 'get',
+                    url: 'MeReport',
+                    data: data,
+                    success: function (da) {
+                        $('input[type=checkbox]').prop('checked', false);
+                    },
+                    error: function () {
+                        alert("失敗")
+                    }
+                })
+        });
+        //封裝一個限制字數方法
+        var checkStrLengths = function (str, maxLength) {
+            var maxLength = maxLength;
+                var result = 0;
+            if (str && str.length > maxLength) {
+                result = maxLength;
+            } else {
+                result = str.length;
+            }
+            return result;
+        }
+        //監聽回復輸入
+        $("#cont textarea").on('input propertychange', function (evt) {
+            id = evt.target.id;
+            console.log(id);
+            var userDesc = $("#"+id).val();
+                //判斷字數
+                var len;
+                if (userDesc)
+                    len = checkStrLengths(userDesc, 100);
+                else
+                    len = 0
+            //顯示字數
+            $(".RcontNum" + id.substring(2, id.length)).html(len + '/100');
+        });
+        //監聽留言輸入
+        $(".Pcont").on('input propertychange', function () {
+            //獲取輸入內容
+            var userDesc = $(this).val();
+            //判斷字數
+            var len;
+            if (userDesc)
+                len = checkStrLengths(userDesc, 100);
+            else
+                len = 0
+            //顯示字數
+            $(".PcontNum").html(len + '/100');
+        });
+        //漲跌變化
+        var tds = $('table>tbody td');
+        for (var i = 0; i < tds.length; i++) {
+            if ($(tds[i]).text().indexOf("△") != -1)
+                $(tds[i]).addClass('text-danger');
+        if ($(tds[i]).text().indexOf("▲") != -1)
+                $(tds[i]).addClass('text-danger').addClass('upstop');
+        if ($(tds[i]).text().indexOf("▽") != -1)
+                $(tds[i]).addClass('text-success');
+        if ($(tds[i]).text().indexOf("▼") != -1)
+                $(tds[i]).addClass('text-success').addClass('downstop');
+        }
+        //收藏功能
+        $("#col").click(function () {
+            var data = { stid: @Session["stid"]};
+                $.ajax({
+                    type: 'get',
+                    url: 'Col',
+                    data: data,
+                    success: function (da) {
+                        alert("收藏成功")
+                    },
+                    error: function () {
+                        alert("收藏失敗")
+                    }
+                })
+        });
+
+    });
+
+
+</script>
+
+
+
+
+
+
+

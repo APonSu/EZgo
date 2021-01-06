@@ -1,0 +1,229 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Member.Models.Mager>
+
+@{
+    ViewBag.Title = "管理員列表";
+}
+@if (ViewBag.AuthCreateResult != null)
+{
+    <div class="modal" tabindex="-1" role="dialog" id="AuthCreateResult">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">訊息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>新增管理員成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.AuthEditResult != null)
+{
+    <div class="modal" tabindex="-1" role="dialog" id="AuthEditResult">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">訊息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>編輯管理員成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="row ">
+    <div class="col-md-12">
+        <h2 class="text-muted text-center my-3">管理員列表</h2>
+        <p>
+            @Html.ActionLink("新增", "AuthCreate", new { }, new { @class = "btn btn-primary" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    管理者
+                </th>
+                <th>
+                    權限區域
+                </th>
+                <th>
+
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaAct)
+                    </td>
+                    <td>
+                        @{
+                            List<string> resultB = new List<string>();
+                            List<string> resultC = new List<string>();
+                            List<string> resultD = new List<string>();
+
+                            var b = Html.DisplayFor(modelItem => item.Authority).ToString().IndexOf("B") + 1;
+                            var c = Html.DisplayFor(modelItem => item.Authority).ToString().IndexOf("C") + 1;
+                            var d = Html.DisplayFor(modelItem => item.Authority).ToString().IndexOf("D") + 1;
+
+                            var bAuthority = Html.DisplayFor(modelItem => item.Authority).ToString().Substring(b, 1);
+                            var cAuthority = Html.DisplayFor(modelItem => item.Authority).ToString().Substring(c, 1);
+                            var dAuthority = Html.DisplayFor(modelItem => item.Authority).ToString().Substring(d, 1);
+
+                            var bResult = switchAuthority(bAuthority);
+                            var cResult = switchAuthority(cAuthority);
+                            var dResult = switchAuthority(dAuthority);
+
+                            <ul class="list-group">
+                                @if (Html.DisplayFor(modelItem => item.Authority).ToString().Contains("B"))
+                                {
+                                    <li class="list-group-item col-6 list-group-item-primary">會員 | @bResult[0]</li>
+                                }
+                                @if (Html.DisplayFor(modelItem => item.Authority).ToString().Contains("C"))
+                                {
+                                    <li class="list-group-item  col-6 list-group-item-danger">檢舉狀態 | @cResult[0]</li>
+                                }
+                                @if (Html.DisplayFor(modelItem => item.Authority).ToString().Contains("D"))
+                                {
+                                    <li class="list-group-item  col-6 list-group-item-warning">影音文章 | @dResult[0]</li>
+                                }
+                            </ul>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("編輯", "AuthEdit", new { id = item.MaId }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("刪除", "AuthDelete", new { id = item.MaId }, new { @class = "btn btn-danger", onclick = "return confirm('你確定嗎')" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <!--<div class="border col-md-3">-->
+    @*<h2 class="text-muted text-center">權限代碼對照表</h2>*@
+    <!--<table class="table ">
+            <tr>
+                <td><strong>代碼</strong></td>
+                <td><strong>代碼說明</strong></td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>可管理廣告</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>可管理檢舉狀態</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>可管理影音文章</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>新增</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>編輯</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>新增+編輯</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>刪除</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>新增+刪除</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>編輯+刪除</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>新增+編輯+刪除</td>
+            </tr>
+        </table>
+    </div>-->
+
+</div>
+@Html.PagedListPager(Model, page => Url.Action("AuthIndex", new { page }))
+
+<script>
+    $(document).ready(function () {
+        @if (ViewBag.error == "您無此權限") {
+            <text>
+                $(".body-content").html("您無此權限");
+            </text>
+        }      
+    })
+    $("#AuthCreateResult,#AuthEditResult").modal("show");
+</script>
+
+@functions
+{
+    public static List<string> switchAuthority(string auth)
+    {
+        string show = "";
+
+        List<string> switchAuthority = new List<string>();
+
+
+        switch (auth)
+        {
+            case "1":
+                show = "新增";
+                break;
+
+            case "2":
+                show = "編輯";
+                break;
+
+            case "3":
+                show = "新增、編輯";
+                break;
+
+            case "4":
+                show = "刪除";
+                break;
+
+            case "5":
+                show = "新增、刪除";
+
+                break;
+
+            case "6":
+                show = "編輯、刪除";
+                break;
+
+            case "7":
+                show = "新增、編輯、刪除";
+                break;
+        }
+
+        switchAuthority.Add(show);
+        return switchAuthority;
+    }
+    
+}

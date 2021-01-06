@@ -1,0 +1,136 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Member.Models.Arti>
+
+@{
+    ViewBag.Title = "Arti";
+}
+
+
+
+
+<style>
+
+        #bgR>div {
+            border: hidden;
+            background-color: #6ba7e8;
+            border-radius: 30px;
+            width: 30px;
+            height: 30px;
+            margin: 1%;
+        }
+
+        .wrapper {
+            position: relative;
+            perspective: 40em;
+            display: grid;
+            transform-style: preserve-3d;
+        }
+
+    .card {
+        grid-area: 1 / 1;
+            /*height: 200px;
+            width: 400px;*/
+        transform: translateX(5px) rotateY(10deg) rotateX(5deg);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 30px;
+        color: #000;
+        text-transform: uppercase;
+        font-size: 60px;
+        font-weight: 900;
+        backface-visibility: hidden;
+        box-shadow: 0 10px 30px -3px rgba(0,0,0,.1);
+    }
+
+        h1 {
+            font-size: 60px;
+            font-weight: 900;
+        }
+
+    .card .enclosed {
+        background: #EA5457;
+        line-height: 1;
+        color: rgba(249, 198, 26, 1);
+        padding: 0 5px;
+        display: inline-block;
+        transform-origin: right center;
+    }
+
+        .wrapper:before {
+            --bw: 6px;
+            grid-area: 1 / 1;
+            content: '';
+            backface-visibility: hidden;
+            height: 100%;
+            width: 100%;
+            margin-top: calc(-1 * var(--bw));
+            margin-left: calc(-1 * var(--bw));
+            transform: translateX(-8px) rotateY(-4deg) rotateX(1deg) scale(1.03);
+            pointer-events: none;
+            border: var(--bw) solid #F7E2D6;
+            box-sizing: content-box;
+        }
+
+
+        .wrapper:hover > div,
+        .wrapper:hover:before {
+            transform: none;
+        }
+
+
+        .wrapper > div,
+        .wrapper:before {
+            will-change: transform;
+            transition: .3s transform cubic-bezier(.25,.46,.45,1);
+        }
+
+        body {
+            display: grid;
+        }
+
+        .b1 {
+            border-radius: 30px;
+            width: 80px;
+            height: 18px;
+        }
+        #CaB{
+        max-width:500px;
+        min-width:200px
+    }
+</style>
+<div id="bgR" class="row justify-content-center mb-5 align-items-center">
+    <hr style="width:10%;height:1px;margin-right:5px;" />
+    <div style="background-color: #F3C74E;"></div>
+    <div style="background-color: #EA5457;"></div>
+    <div style="background-color: #61A49D;"></div>
+    <div style="background-color: #205289;"></div>
+    <div style="background-color: #5D6160;"></div>
+    <div style="background-color: #E3A98D;"></div>
+    <div style="background-color: #F7E2D6;"></div>
+    <hr style="width:10%;height:1px;margin-left:5px;" />
+</div>
+<div class="row justify-content-center align-items-center">
+    @foreach (var item in Model)
+    {
+        <div id="CaB" class="wrapper mx-3 my-4">
+            <div class="card text-center d-flex p-1 c1" style="border-color: #EA5457;">
+                <a class="btn p-0" href="@item.ArFromWeb.ToString()" target="_blank">
+                    <div>
+                        <p class=" b1 pl-3 pr-3 m-2 enclosed " style="color:white;">@item.ArType</p>
+                        <div class="h5">@item.ArTitle</div>
+                    </div>
+                    <div  class="card-body border-bottom border-top border-danger text-muted">
+                        <p class="card-text">@item.ArCont</p>
+                    </div>
+                    <div style="color: #ebaeb0;">
+                        <small>@Html.DisplayFor(modelItem => item.ArPublishTime)</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Arti", new { page }))

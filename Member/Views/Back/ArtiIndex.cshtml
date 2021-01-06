@@ -1,0 +1,172 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Member.Models.Arti>
+
+@{
+    ViewBag.Title = "Arti";
+}
+<style>
+</style>
+@if (ViewBag.ArtiCreateResult != null)
+{
+    <div class="modal" tabindex="-1" role="dialog" id="ArtiCreateResult">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">訊息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>新增影音文章成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.ArtiEditResult != null)
+{
+    <div class="modal" tabindex="-1" role="dialog" id="ArtiCreateResult">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">訊息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>編輯影音文章成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*@if (Session["AutD"].ToString().Contains("新增"))
+    {
+        <div class="my-4">
+            @Html.ActionLink("新 增", "ArtiCreate", "", new { @class = "btn btn-primary pl-5 pr-5 " })
+        </div>
+
+    }@foreach (var item in Model)
+    {
+
+        <table class="dcf-table dcf-table-responsive dcf-table-bordered dcf-table-striped dcf-w-100%">
+            <thead>
+                <tr>
+                    <th class="dcf-txt-center" data-label="類型" scope="col">類型</th>
+                    <th class="dcf-txt-center" data-label="標題" scope="col">標題</th>
+                    <th data-label="資料來源" scope="col">資料來源</th>
+                    <th data-label="內容" scope="col">內容</th>
+                    <th data-label="時間" scope="col">時間</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="dcf-txt-center" data-label="類型" scope="row">@item.ArType</th>
+                    <td class="dcf-txt-center" data-label="標題">@item.ArTitle</td>
+                    <td data-label="資料來源">@item.ArFromWeb</td>
+                    <td data-label="內容">@item.ArCont</td>
+                    <td data-label="時間">@item.ArPublishTime</td>
+                    <td>
+                        @Html.ActionLink("編輯", "ArtiEdit", new { id = item.ArId }, new { @class = "btn btn-outline-dark mb-1" })
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#delete@(item.ArId)">刪除</button>
+                        <div class="modal" id="delete@(item.ArId)">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">再次確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        確定要刪除嗎?
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.ActionLink("刪除", "ArtiDelete", new { id = item.ArId }, new { @class = "btn btn-danger" })
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }*@
+<div></div>
+@if (Session["AutD"].ToString().Contains("新增"))
+{
+    <div class="my-4">
+        @Html.ActionLink("新 增", "ArtiCreate", "", new { @class = "btn btn-primary pl-5 pr-5 " })
+    </div>
+
+}
+<table class="table table-borderless table-hover d-table text-center">
+    <tr style="background-color: #E3A98D;color: aliceblue;">
+        <th width="70px" class="">類型     </th>
+        <th width="160px" class="">標題     </th>
+        <th width="160px" class="">資料來源 </th>
+        <th>內容     </th>
+        <th width="90px" class="">發布時間 </th>
+        <th width="100px"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr style="border-bottom: solid 0.5px #F7E2D6;">
+            <td>@item.ArType</td>
+            <td>@item.ArTitle</td>
+            <td>@item.ArFromWeb</td>
+            <td>@item.ArCont</td>
+            <td><small>@item.ArPublishTime</small></td>
+            <td>
+                @Html.ActionLink("編輯", "ArtiEdit", new { id = item.ArId }, new { @class = "btn btn-outline-dark mb-1" })
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#delete@(item.ArId)">刪除</button>
+                <div class="modal" id="delete@(item.ArId)">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">再次確認</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                確定要刪除嗎?
+                            </div>
+                            <div class="modal-footer">
+                                @Html.ActionLink("刪除", "ArtiDelete", new { id = item.ArId }, new { @class = "btn btn-danger" })
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Arti", new { page }))
+<script>
+    $(document).ready(function () {
+        @if (ViewBag.error== "您無此權限") {
+            <text>
+                $(".body-content").html("您無此權限");
+            </text>
+        }    
+    })
+    $("#ArtiCreateResult,#ArtiEditResult").modal("show");
+   
+</script>

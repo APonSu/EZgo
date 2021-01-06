@@ -1,0 +1,239 @@
+﻿<style>
+    .error {
+        color: red;
+        margin-left: 5px;
+    }
+    .qqq {
+        border-radius: 12px;
+        box-shadow: 0 0 5px #ff8c8f;
+    }
+</style>
+@if (Session["result"] != null)
+{
+
+    <ul class="navbar-nav navbar-right d-flex align-items-center">
+        <li class="nav-item"><span class="text-white mr-2">@Session["WelCome"]</span></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="mesack" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><small><span class="badge badge-warning badge-pill">1</span></small><i class="fas fa-bell"></i></a>
+            <div class="dropdown-menu text-center bg-dark" id="messhow">
+            </div>
+        </li>
+        <li class="nav-item">@Html.ActionLink(" 會員專區", "Index", "Account", new { usid = Session["result"] }, new { @class = "fas fa-user-edit btn btn-danger ml-0" })</li>
+        <li class="nav-item">@Html.ActionLink(" 登出", "Logout", "Account", "", new { @class = "fas fa-sign-out-alt btn btn-danger ml-0" })</li>
+    </ul>
+
+}
+else
+{
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#membre"><i class="fas fa-user-plus"></i> 註冊</button>
+            </div>
+            <div class="container">
+                <div class="modal fade" id="membre" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-content bg-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title p-3">會員註冊</h5>
+                        </div>
+                        <form id="RegisterForm">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="ReEmail" class="col-form-label">帳號：</label>
+                                    <input type="text" id="ReEmail" name="ReEmail" class="form-control" placeholder="請輸入E-mail" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="RePassword" class="col-form-label">密碼：</label>
+                                    <input type="password" id="RePassword" name="RePassword" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ReConfPwd" class="col-form-label">確認密碼：</label>
+                                    <input type="password" id="ReConfPwd" name="ReConfPwd" class="form-control" />
+                                </div>
+                                <div class="modal-footer  justify-content-center">
+                                    <button type="submit" class="btn btn-danger">註冊</button>
+                                </div>
+                                <p id="RegisterVailError"></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item ">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#membli"><i class="fas fa-sign-in-alt"></i> 登入</button>
+            </div>
+            <div class="container">
+                <div class="modal fade" id="membli" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-content bg-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title p-3">會員登入</h5>
+                        </div>
+                        @Session["FP"]
+                        <form id="UsLoginForm">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="UsLOEmail" class="col-form-label">帳號：</label>
+                                    <input type="text" id="UsLOEmail" name="UsLOEmail" class="form-control" placeholder="請輸入E-mail" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="UsLOPassword" class="col-form-label">密碼：</label>
+                                    <input type="password" id="UsLOPassword" name="UsLOPassword" class="form-control" />
+                                </div>
+                                <div class="code">
+                                    <input type="text" name="code" id="code"/>
+                                    <img  src="/Account/GetValidateCode/" />
+                                </div>
+                                <div class="modal-footer  justify-content-center">
+                                    <button type="submit" class="btn btn-danger">登入</button>
+                                    @Html.ActionLink("忘記密碼", "ForgotPwd", "Account", "", new { @class = "btn btn-light" })
+                                </div>
+                                <p id="LoginVailError"></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+}
+
+<script>
+    $('#UsLoginForm').validate({
+        rules: {
+            UsLOEmail: {
+                required: true,
+                email: true
+
+            },
+            UsLOPassword: {
+                required: true,
+            },
+            code: {
+                required: true,
+            }
+        },
+        messages: {
+            UsLOEmail: {
+                required: '必填',
+                email: 'Email格式不正確'
+            },
+            UsLOPassword: {
+                required: '必填'
+            },
+            code: {
+                required: '必填'
+            }
+        },
+        submitHandler: function (form) {
+            //form.submit();
+            var data = { UsLOEmail: $("#UsLOEmail").val(), UsLOPassword: $("#UsLOPassword").val(), code: $("#code").val()};
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Login","Account","")',
+                data: data,
+                success: function (da) {
+                    if (da != "成功")
+                        $("#LoginVailError").text(da);
+                    else
+                        location.href = "@Url.Action("ShowStock","Home","")";
+                },
+                error: function() {
+                    alert("失敗")
+                }
+            })
+        }
+    });
+    $('#RegisterForm').validate({
+        rules: {
+            ReEmail: {
+                required: true,
+                email: true
+
+            },
+            RePassword: {
+                required: true,
+                rangelength: [6, 10],
+            },
+            ReConfPwd: {
+                required: true,
+                equalTo:'#RePassword'
+            }
+        },
+        messages: {
+            ReEmail: {
+                required: '必填',
+                email: 'Email格式不正確'
+            },
+            RePassword: {
+                required: '必填',
+                rangelength: '會員密碼的長度需再6~10個字元內！',
+            },
+            ReConfPwd: {
+                required: '必填',
+                equalTo: "兩次密碼輸入不一致"
+            }
+        },
+        submitHandler: function (form) {
+            //form.submit();
+            var data = { ReEmail: $("#ReEmail").val(), RePassword: $("#RePassword").val()};
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Register", "Account","")',
+                data: data,
+                success: function (da) {
+                    if (da != "成功")
+                        $("#RegisterVailError").text(da);
+                    else
+                        location.href = "@Url.Action("ShowStock","Home","")";
+                },
+                error: function() {
+                    alert("失敗")
+                }
+            })
+        }
+    });
+    //小鈴鐺訊息
+    $('#mesack').click(function(){
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("MesShow", "Account","")',
+            success: function (da) {
+                $("#messhow").empty();
+                if (da == "") {
+                    $("#messhow").append(`<div class='dropdown-item text-white-50 disabled'>無資訊</div>`);
+                }
+                for (var i = 0; i < da.length; i++) {
+                    if (da != "") {
+                        $("#messhow").append(da[i]);
+                    }
+                }
+            },
+            error: function() {
+                alert("失敗")
+            }
+        })
+    })
+    //小鈴鐺留言提示
+    $("#messhow").click(function (evt) {
+        var href = evt.target.parentElement.parentElement.attributes[0].value;
+        var co = href.indexOf("#");
+        var s = href.substring(co + 1);
+
+        console.log($("cont >a +div"));
+        for (var i = 0; i < $("#cont >a").length; i++) {
+            var d = $("#cont >a")[i].id;
+            $("#" + d + "+div").removeClass("qqq")
+            if (s == $("#cont >a")[i].id) {
+                
+                var yy= $("#" + d + "+div").addClass("qqq");
+                setTimeout(function () { yy.removeClass("qqq"); }, 2500);
+            };
+        };
+
+    });
+
+</script>

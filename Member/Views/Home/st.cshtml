@@ -1,0 +1,70 @@
+﻿@model Member.ViewModels.VM
+
+
+
+<div class="row">
+    <hr style=" width:1200px;margin-left:-20px" />
+
+    <table class=" table table-hover table-striped" id="table1">
+        <tr>
+            <th>股票代號</th>
+            <th>股票名稱</th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        @foreach (var item in Model.IndustryD)
+        {
+
+            <tr>
+                <td><a href="@Url.Action("ShowStock")?stid=@item.Stock.StId">@item.Stock.StId</a></td>
+                <td>@item.Stock.StName</td>
+                <td>
+                    <button type="button" id="col@(item.Stock.StId)" class="btn btn-primary a1 "><i class="fas fa-heart"></i></button>
+                </td>
+                <td></td>
+            </tr>
+
+        }
+
+    </table>
+    @TempData["InColerr"]
+</div>
+<script>
+    $(document).ready(function () {
+        //非會員隱藏按鍵功能
+        @if (Session["result"] == null) {
+            <text>
+                $(".a1").attr('disabled', 'disabled').addClass('btn disabled');
+            </text>
+         }
+
+        @foreach (var item in Model.IndustryD)
+         {
+            <text>
+                $("#col" + @item.Stock.StId).click(function () {
+                    var data = { stid: @item.Stock.StId};
+                    $.ajax({
+                        type: 'get',
+                        url: 'Col',
+                        data: data,
+                        success: function(da) {
+
+                        alert("成功")
+                        },
+                        error: function() {
+                        alert("失敗")
+                        }
+                    })
+                });
+            </text>
+
+
+
+        }
+
+
+
+    });
+
+</script>

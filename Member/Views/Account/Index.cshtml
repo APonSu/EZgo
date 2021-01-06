@@ -1,0 +1,92 @@
+﻿@model Member.ViewModels.VM
+@{
+    ViewBag.Title = "會員專區-";
+}
+
+<h2 class="pt-3 mt-3 text-muted text-center">會員專區</h2>
+
+@*個人資料*@
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group text-center">
+        <h5 class="p-3 mt-3 text-muted ">帳號</h5>
+        <div class="w-auto">
+            <p class="bg-white border-0 mb-5 text-muted " style="font-size:26px;">@Model.Memb[0].UsEmail</p>
+            @*個人資料編輯功能*@
+            <button type="button" class="btn btn-outline-secondary ml-2" data-toggle="modal" data-target="#membinfo">編輯個人資訊</button>
+            <div class="container">
+                <div class="modal fade" id="membinfo" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-content bg-light">
+                        @using (Html.BeginForm(FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <h5 class="modal-title p-3">編輯您的資料</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <label for="UsPassword" class="col-form-label" id="uspwd">密碼：</label>
+                                        @Html.EditorFor(m => m.Memb[0].UsPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Memb[0].UsPassword, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UsName" class="col-form-label" id="usname">稱呼：</label>
+                                        @Html.EditorFor(m => m.Memb[0].UsName, new { htmlAttributes = new { @class = "form-control", @placeholder = "別人都叫我?" } })
+                                        @Html.ValidationMessageFor(m => m.Memb[0].UsName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UsSex" class="col-form-label" id="ussex">性別：</label>
+                                        @Html.EditorFor(m => m.Memb[0].UsSex, new { htmlAttributes = new { @class = "form-control", @true = "男", @false = "女", @id = "gender" } })
+                                        @Html.ValidationMessageFor(m => m.Memb[0].UsSex, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UsPh" class="col-form-label" id="usph">手機號碼：</label>
+                                        @Html.EditorFor(m => m.Memb[0].UsPh, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Memb[0].UsPh, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-danger">確認</button>
+                                    </div>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*動態牆*@
+@*收藏個股*@
+<div class="row text-center">
+    <h5 class="p-3 mt-3 text-muted ">我的收藏</h5>
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>股票代號</th>
+            <th>股票名稱</th>
+            <th>功能</th>
+        </tr>
+        @foreach (var item in Model.Collection)
+        {
+            <tr>
+                <td><a href="@Url.Action("","Home/ShowStock")?stid=@item.Stock.StId">@item.Stock.StId</a></td>
+                <td>@item.Stock.StName</td>
+                <td>@Html.ActionLink("取消收藏", "ColDelete", "Home", new { usid = item.UsId, stid = item.Stock.StId }, new { @class = "btn btn-danger", onclick = "return confirm('確定取消收藏?')" })</td>
+            </tr>
+        }
+    </table>
+</div>
+@*類型個股*@
+
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<script>
+    $("#gender option[value='true']").text("男");
+    $("#gender option[value='false']").text("女");
+</script>

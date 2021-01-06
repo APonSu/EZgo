@@ -1,0 +1,70 @@
+﻿@model Member.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "忘記密碼";
+}
+
+<h3 class="p-3 mt-3 text-muted">忘記密碼</h3>
+
+@if (ViewBag.allow == null)
+{
+    using (Html.BeginForm("ForgotPwd", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 w-50">
+                    @Html.EditorFor(model => model.UsEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "請輸入E-mail" } })
+                    @Html.ValidationMessageFor(model => model.UsEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="送出" class="btn btn-secondary" />
+                </div>
+            @ViewBag.Message
+
+        </div>
+    }
+    <div class="ml-3 mt-3">
+        @Html.ActionLink("返回首頁", "ShowStock", "Home")
+    </div>
+}
+else
+{
+    <div>
+        <div id="wait"></div>
+    </div>
+}
+
+<script>
+    var count = 5;
+    function countDown() {
+        $("#wait").text("臨時密碼已送出，" + count+"秒後跳轉畫面");
+        count -= 1;
+        if (count == 0) {
+            location.href = "http://localhost:6480/Home/ShowStock";
+        }
+        setTimeout("countDown()", 1000);
+    }
+    @{ var allow = ViewBag.allow;
+        if (allow != null)
+        {
+            <text>
+                countDown();
+            </text>
+
+            }
+        }
+
+</script>
+
+
+
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

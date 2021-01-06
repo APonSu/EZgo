@@ -1,0 +1,81 @@
+﻿@model Member.Models.Arti
+
+@{
+    ViewBag.Title = "ArtiCreate";
+}
+
+<h3 class="p-3 mt-3 text-muted text-center">影音文章發布</h3>
+
+@using (Html.BeginForm("ArtiCreate", "Back", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="radio" class="btn-check" name="ArType" id="typeA" autocomplete="off" value="文章" checked >
+                <label class="btn btn-outline-primary mr-3" for="typeA">文章</label>
+
+                <input type="radio" class="btn-check" name="ArType" id="typeM" autocomplete="off" value="影音">
+                <label class="btn btn-outline-danger" for="typeM">影音</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>標題</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArTitle, new { htmlAttributes = new { @class = "form-control", @required = "reauired", placeholder = "請輸入中英文50字內" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>請上傳檔案或輸入網址</label>
+            <div class="col-md-10 mb-1">
+                <input id="ArFile" name="ArFile" type="file" />
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArFromWeb, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入網址" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>簡介</label>
+            <div class="col-md-10">
+                <textarea id="ArCont" name="ArCont" class="form-control" rows="5" required placeholder="請輸入中英文256字內"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" onclick="aa()" class="btn btn-outline-secondary px-4">新增</button>
+            </div>
+        </div>
+        <input type="hidden" id="hd" name="hd" />
+        <div class="col-md-offset-2 col-md-10 ">
+            @ViewBag.Message
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("回到影音文章列表", "ArtiIndex", "", new { @class = "btn btn-outline-secondary" })
+</div>
+<script>
+    $(document).ready(function () {
+
+        @if (ViewBag.error== "您無此權限") {
+            <text>
+                $(".body-content").html("您無此權限");
+            </text>
+
+        }
+
+    })
+    function aa() {
+
+        var st = "/EZgoPDF/" + $("#ArFile").val().substring(12);
+        $("#hd").val(st)
+    }
+
+
+</script>

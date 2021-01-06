@@ -1,0 +1,60 @@
+﻿@model Member.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "會員登入";
+}
+    <style>
+        .pasFont{
+            height:2.8em;
+            font-size:10pt;
+        }
+    </style>
+<h3 class="p-3 mt-3 text-muted">會員登入</h3>
+
+@Session["FP"]
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.UsEmail, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <p class="control-label col-md-2">帳號：</p>
+            <div class="col-md-3 col-9 w-auto">
+                @Html.EditorFor(model => model.UsEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "請輸入E-mail" } })
+                @Html.ValidationMessageFor(model => model.UsEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.UsPassword, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <p class="control-label col-md-6">密碼：</p>
+            <div class="col-md-3 col-9 w-auto">
+                @Html.EditorFor(model => model.UsPassword, new { htmlAttributes = new { @class = "form-control ", @placeholder = "開頭需為英文字母 長度至少6字元" } })
+                @Html.ValidationMessageFor(model => model.UsPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 mt-4">
+                <input type="submit" value="登入" class="btn btn-secondary" />
+            </div>
+
+        </div>
+        @ViewBag.Message
+
+    </div>
+}
+
+<div class="ml-3">
+    @Html.ActionLink("忘記密碼", "ForgotPwd", "Account") 
+</div>
+<script>
+
+    $("#a123").v
+</script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

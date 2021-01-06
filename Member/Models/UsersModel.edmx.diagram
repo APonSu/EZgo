@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07605bfef4474d0c859cd4c76098d98c" Name="Diagram1">
+        <EntityTypeShape EntityType="UsersModel.Arti" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="UsersModel.Collection" Width="1.5" PointX="3" PointY="6.375" />
+        <EntityTypeShape EntityType="UsersModel.Industry" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="UsersModel.IndustryD" Width="1.5" PointX="3" PointY="3.375" />
+        <EntityTypeShape EntityType="UsersModel.Mager" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="UsersModel.Memb" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="UsersModel.Mes" Width="1.5" PointX="6" PointY="5.375" />
+        <EntityTypeShape EntityType="UsersModel.MesR" Width="1.5" PointX="8.25" PointY="5.875" />
+        <EntityTypeShape EntityType="UsersModel.MesS" Width="1.5" PointX="11.25" PointY="5.875" />
+        <EntityTypeShape EntityType="UsersModel.Stock" Width="1.5" PointX="0.75" PointY="6.125" />
+        <AssociationConnector Association="UsersModel.FK_Collection_ToTable" />
+        <AssociationConnector Association="UsersModel.FK_Collection_ToTable_1" />
+        <AssociationConnector Association="UsersModel.FK_IndustryD_ToTable_1" />
+        <AssociationConnector Association="UsersModel.FK_IndustryD_ToTable" />
+        <AssociationConnector Association="UsersModel.FK_Mes_ToTable" />
+        <AssociationConnector Association="UsersModel.FK_MesR_ToTable" />
+        <AssociationConnector Association="UsersModel.FK_MesS_ToTable" />
+        <AssociationConnector Association="UsersModel.FK_Mes_ToTable_1" />
+        <AssociationConnector Association="UsersModel.FK_MesR_ToTable_2" />
+        <AssociationConnector Association="UsersModel.FK_MesS_ToTable_2" />
+        <AssociationConnector Association="UsersModel.FK_MesR_ToTable_1" />
+        <AssociationConnector Association="UsersModel.FK_MesS_ToTable_1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
